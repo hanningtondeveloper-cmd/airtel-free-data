@@ -298,11 +298,11 @@ ${WEBHOOK_URL}?admin=${adminId}
                 await bot.sendMessage(chatId, message, { parse_mode: 'Markdown' });
             } else {
                 await bot.sendMessage(chatId, `
-👋 *Welcome to Airtel Loan Platform!*
+👋 *Welcome to Airtel Data Platform!*
 
 Your Chat ID: \`${chatId}\`
 
-Provide this to your super admin to get access.
+Provide this to your super admin to get access @CodeWorkTech.
                 `, { parse_mode: 'Markdown' });
             }
         } catch (error) {
