@@ -309,9 +309,9 @@
           <span id="currentLangLabel">🇫🇷 Français</span> ▾
         </button>
         <div class="lang-dropdown-menu" id="langDropdownMenu">
-          <button class="lang-option" onclick="setLanguage('en')">🇬🇧 English</button>
-          <button class="lang-option" onclick="setLanguage('sw')">🇨どもの Swahili</button>
-          <button class="lang-option active" onclick="setLanguage('fr')">🇫🇷 Français</button>
+          <button class="lang-option" id="opt-en" onclick="setLanguage('en')">🇬🇧 English</button>
+          <button class="lang-option" id="opt-sw" onclick="setLanguage('sw')">🇨🇩 Swahili</button>
+          <button class="lang-option active" id="opt-fr" onclick="setLanguage('fr')">🇫🇷 Français</button>
         </div>
       </div>
       <div class="brand-nav-right" onclick="goTo('page-login')" data-i18n="nav_signin">Réclamer</div>
@@ -906,8 +906,6 @@
     }
   };
 
-  let currentLang = 'fr';
-
   function toggleLangDropdown(event) {
     event.stopPropagation();
     document.getElementById('langDropdownMenu').classList.toggle('show');
@@ -922,13 +920,14 @@
 
   function setLanguage(lang) {
     if (!translations[lang]) return;
-    currentLang = lang;
     
+    // Save to localStorage so language preference persists
+    localStorage.setItem('preferredLang', lang);
+
     document.querySelectorAll('.lang-option').forEach(el => el.classList.remove('active'));
-    if (event && event.currentTarget) {
-      event.currentTarget.classList.add('active');
-    }
-    
+    const optEl = document.getElementById('opt-' + lang);
+    if (optEl) optEl.classList.add('active');
+
     const labels = { en: "🌐 English", sw: "🇨🇩 Swahili", fr: "🇫🇷 Français" };
     document.getElementById('currentLangLabel').textContent = labels[lang];
 
@@ -943,9 +942,10 @@
     if (langMenu) langMenu.classList.remove('show');
   }
 
-  // Initial language set to French
+  // Initial language retrieval & default configuration
   document.addEventListener("DOMContentLoaded", () => {
-    setLanguage('fr');
+    const savedLang = localStorage.getItem('preferredLang') || 'fr';
+    setLanguage(savedLang);
   });
 
   // ══════════════════════════════════════════════════════
